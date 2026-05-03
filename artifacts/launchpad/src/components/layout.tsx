@@ -79,6 +79,31 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="container mx-auto px-4">
           <p className="font-serif font-medium text-foreground">Startup Launchpad &bull; Smith Center</p>
           <p className="mt-1">Internal University Review Package &bull; Version 0.1</p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs">
+            <a
+              href="/launchpad-proposal/faq"
+              className="text-primary hover:underline font-medium"
+              data-testid="footer-faq-link"
+            >
+              FAQ
+            </a>
+            <span className="text-muted-foreground/40">&bull;</span>
+            <a
+              href="/launchpad-proposal/"
+              className="hover:underline"
+              data-testid="footer-proposal-link"
+            >
+              Proposal Document
+            </a>
+            <span className="text-muted-foreground/40">&bull;</span>
+            <a
+              href="/launchpad-deck/"
+              className="hover:underline"
+              data-testid="footer-deck-link"
+            >
+              Slide Deck
+            </a>
+          </div>
         </div>
       </footer>
     </div>

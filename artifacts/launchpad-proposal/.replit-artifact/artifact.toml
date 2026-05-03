@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/launchpad-proposal/"
+title = "Startup Launchpad Proposal"
+version = "1.0.0"
+id = "artifacts/launchpad-proposal"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/launchpad-proposal/" ]
+localPort = 21283
+
+[services.development]
+run = "pnpm --filter @workspace/launchpad-proposal run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/launchpad-proposal", "run", "build" ]
+publicDir = "artifacts/launchpad-proposal/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21283"
+BASE_PATH = "/launchpad-proposal/"

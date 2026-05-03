@@ -307,19 +307,37 @@ export default function CalendarPage() {
               </span>
             ))}
           </div>
-          <div className="mb-6">
-            <h2 className="text-xl font-serif font-bold text-blue-900 mb-3 pb-2 border-b border-blue-200">Year 1: Discover & Validate (Aug 2026 – May 2027)</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
+          <div className="mb-8">
+            <h2 className="text-xl font-serif font-bold text-blue-900 mb-3 pb-2 border-b border-blue-200">Year 1 — Fall: Discover (Aug – Dec 2026)</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 mb-6">
               {MONTH_NUMS.slice(0, 5).map((month, i) => (
-                <MonthGrid key={`y1-${month}`} month={month} year={1} monthName={MONTHS[i]} />
+                <MonthGrid key={`y1-fall-${month}`} month={month} year={1} monthName={MONTHS[i]} />
+              ))}
+            </div>
+            <h2 className="text-xl font-serif font-bold text-teal-900 mb-3 pb-2 border-b border-teal-200">Year 1 — Spring: Validate (Jan – May 2027)</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 mb-6">
+              {MONTH_NUMS.slice(5, 10).map((month, i) => (
+                <MonthGrid key={`y1-spring-${month}`} month={month} year={1} monthName={MONTHS[i + 5]} />
+              ))}
+            </div>
+            <h2 className="text-xl font-serif font-bold text-slate-700 mb-3 pb-2 border-b border-slate-200">Year 1 — Summer Sprint (Jun – Jul 2027)</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[{ month: 6, name: "June" }, { month: 7, name: "July" }].map(({ month, name }) => (
+                <MonthGrid key={`y1-summer-${month}`} month={month} year={1} monthName={name} />
               ))}
             </div>
           </div>
           <div>
-            <h2 className="text-xl font-serif font-bold text-indigo-900 mb-3 pb-2 border-b border-indigo-200">Year 2: Build & Launch (Aug 2027 – May 2028)</h2>
+            <h2 className="text-xl font-serif font-bold text-indigo-900 mb-3 pb-2 border-b border-indigo-200">Year 2 — Fall: Build (Aug – Dec 2027)</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3 mb-6">
+              {MONTH_NUMS.slice(0, 5).map((month, i) => (
+                <MonthGrid key={`y2-fall-${month}`} month={month} year={2} monthName={MONTHS[i]} />
+              ))}
+            </div>
+            <h2 className="text-xl font-serif font-bold text-violet-900 mb-3 pb-2 border-b border-violet-200">Year 2 — Spring: Launch (Jan – May 2028)</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
-              {MONTH_NUMS.map((month, i) => (
-                <MonthGrid key={`y2-${month}`} month={month} year={2} monthName={MONTHS[i]} />
+              {MONTH_NUMS.slice(5, 10).map((month, i) => (
+                <MonthGrid key={`y2-spring-${month}`} month={month} year={2} monthName={MONTHS[i + 5]} />
               ))}
             </div>
           </div>

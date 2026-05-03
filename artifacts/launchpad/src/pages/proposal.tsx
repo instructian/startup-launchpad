@@ -147,7 +147,80 @@ export default function ProposalPage() {
       </section>
 
       <section className="mb-12 print:mb-8">
-        <h3 className="text-2xl font-serif font-bold border-b pb-2 mb-6">5. Risks and Mitigations</h3>
+        <h3 className="text-2xl font-serif font-bold border-b pb-2 mb-6">5. Resource Map</h3>
+        <p className="mb-4 text-slate-600 text-sm">Summary of essential operational requirements by category. See the Resources Manifest for the full inventory including Recommended and Stretch items.</p>
+        <div className="border rounded-lg overflow-hidden">
+          <Table>
+            <TableHeader className="bg-slate-50">
+              <TableRow>
+                <TableHead className="w-[140px]">Category</TableHead>
+                <TableHead>Essential Requirement</TableHead>
+                <TableHead className="w-[160px]">Owner</TableHead>
+                <TableHead className="w-[140px]">Timing</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium">Staffing</TableCell>
+                <TableCell>Program Director / Lead</TableCell>
+                <TableCell>Smith Center</TableCell>
+                <TableCell>Year-round</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">Budget</TableCell>
+                <TableCell>Pilot-year event operating budget</TableCell>
+                <TableCell>Advancement / Center</TableCell>
+                <TableCell>Before Fall Y1</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">Spaces</TableCell>
+                <TableCell>Makerspace / Design Lab access</TableCell>
+                <TableCell>Engineering / Art</TableCell>
+                <TableCell>Spring Y1 onwards</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">Technology</TableCell>
+                <TableCell>Launchpad tool license and admin</TableCell>
+                <TableCell>Program Director</TableCell>
+                <TableCell>Year-round</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">Mentors</TableCell>
+                <TableCell>Mentor pool — business, tech, design</TableCell>
+                <TableCell>Alumni Affairs</TableCell>
+                <TableCell>Year 2 primarily</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">Judges</TableCell>
+                <TableCell>Judge pool for all event tiers</TableCell>
+                <TableCell>Program Director</TableCell>
+                <TableCell>Event weeks</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">Events</TableCell>
+                <TableCell>Ideathon, Innovation Festival, Sunstone production</TableCell>
+                <TableCell>Smith Center</TableCell>
+                <TableCell>Nov &amp; Apr each year</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">Marketing</TableCell>
+                <TableCell>Communications channels for student recruitment</TableCell>
+                <TableCell>University Comms</TableCell>
+                <TableCell>Year-round</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">Workshops</TableCell>
+                <TableCell>Workshop facilitators (faculty partners)</TableCell>
+                <TableCell>Faculty Partners</TableCell>
+                <TableCell>Monthly</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </section>
+
+      <section className="mb-12 print:mb-8">
+        <h3 className="text-2xl font-serif font-bold border-b pb-2 mb-6">6. Risks and Mitigations</h3>
         <div className="border rounded-lg overflow-hidden">
           <Table>
             <TableHeader className="bg-slate-50">
@@ -187,7 +260,7 @@ export default function ProposalPage() {
       </section>
 
       <section className="mb-12 print:mb-8 print:break-inside-avoid">
-        <h3 className="text-2xl font-serif font-bold border-b pb-2 mb-6 text-primary">6. University Approval Asks</h3>
+        <h3 className="text-2xl font-serif font-bold border-b pb-2 mb-6 text-primary">7. University Approval Asks</h3>
         <div className="bg-slate-50 border rounded-xl p-6">
           <p className="mb-4 font-medium text-slate-700">To proceed with pilot year implementation, we request approval on the following items:</p>
           <ul className="space-y-4">

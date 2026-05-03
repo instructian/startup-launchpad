@@ -11,6 +11,7 @@ import {
   Building2,
   Zap,
   Target,
+  GraduationCap,
 } from "lucide-react";
 
 const tiers = [

@@ -52,66 +52,75 @@ export default function VideoTemplate({
   loop?: boolean;
   onSceneChange?: (sceneKey: string) => void;
 } = {}) {
-  const { currentScene, currentSceneKey } = useVideoPlayer({ durations, loop });
+  const { currentSceneKey } = useVideoPlayer({ durations, loop });
 
   useEffect(() => {
     onSceneChange?.(currentSceneKey);
   }, [currentSceneKey, onSceneChange]);
 
   const baseSceneKey = currentSceneKey.replace(/_r[12]$/, '') as keyof typeof SCENE_DURATIONS;
-  const sceneIndex = Object.keys(SCENE_DURATIONS).indexOf(baseSceneKey);
   const SceneComponent = SCENE_COMPONENTS[baseSceneKey];
   const caption = captions[baseSceneKey] ?? '';
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-[var(--color-brand-navy)]" style={{ fontFamily: 'var(--font-body)' }}>
-      {/* Persistent background layers */}
-      <div className="absolute inset-0 pointer-events-none">
-        <motion.div
-          className="absolute w-[80vw] h-[80vw] rounded-full opacity-30 blur-[120px]"
-          style={{ background: 'radial-gradient(circle, var(--color-brand-dark), transparent)' }}
-          animate={{
-            x: ['-20%', '30%', '-10%'],
-            y: ['-10%', '20%', '-20%'],
-            scale: [1, 1.2, 0.9],
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute w-[60vw] h-[60vw] rounded-full opacity-10 blur-[100px] right-0 bottom-0"
-          style={{ background: 'radial-gradient(circle, var(--color-brand-gold), transparent)' }}
-          animate={{
-            x: ['10%', '-20%', '5%'],
-            y: ['10%', '-30%', '-10%'],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </div>
-
-      <AnimatePresence mode="popLayout">
-        {SceneComponent && <SceneComponent key={currentSceneKey} />}
-      </AnimatePresence>
-
-      {/* Caption layer */}
-      <div className="absolute bottom-[4vh] inset-x-0 flex justify-center z-50 pointer-events-none">
-        <AnimatePresence mode="wait">
+    <div
+      className="w-full h-screen flex items-center justify-center overflow-hidden bg-black"
+      style={{ fontFamily: 'var(--font-body)' }}
+    >
+      <div
+        className="relative overflow-hidden bg-[var(--color-brand-navy)]"
+        style={{
+          aspectRatio: '16/9',
+          width: '100%',
+          maxHeight: '100%',
+          maxWidth: 'calc(100vh * 16 / 9)',
+        }}
+      >
+        {/* Persistent background layers */}
+        <div className="absolute inset-0 pointer-events-none">
           <motion.div
-            key={baseSceneKey}
-            initial={{ opacity: 0, y: 15, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-[#071628]/90 backdrop-blur-xl px-10 py-4 rounded-full border border-white/10 shadow-2xl shadow-black/50"
-          >
-            <p className="text-[#F7F5F0] font-body text-[1.8vw] font-medium tracking-wide">
-              {caption}
-            </p>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+            className="absolute w-[80vw] h-[80vw] rounded-full opacity-30 blur-[120px]"
+            style={{ background: 'radial-gradient(circle, var(--color-brand-dark), transparent)' }}
+            animate={{
+              x: ['-20%', '30%', '-10%'],
+              y: ['-10%', '20%', '-20%'],
+              scale: [1, 1.2, 0.9],
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.div
+            className="absolute w-[60vw] h-[60vw] rounded-full opacity-10 blur-[100px] right-0 bottom-0"
+            style={{ background: 'radial-gradient(circle, var(--color-brand-gold), transparent)' }}
+            animate={{
+              x: ['10%', '-20%', '5%'],
+              y: ['10%', '-30%', '-10%'],
+            }}
+            transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </div>
 
-      {/* Suppress unused warning */}
-      <span style={{ display: 'none' }}>{currentScene}{sceneIndex}</span>
+        <AnimatePresence mode="popLayout">
+          {SceneComponent && <SceneComponent key={currentSceneKey} />}
+        </AnimatePresence>
+
+        {/* Caption layer */}
+        <div className="absolute bottom-[4vh] inset-x-0 flex justify-center z-50 pointer-events-none">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={baseSceneKey}
+              initial={{ opacity: 0, y: 15, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-[#071628]/90 backdrop-blur-xl px-10 py-4 rounded-full border border-white/10 shadow-2xl shadow-black/50"
+            >
+              <p className="text-[#F7F5F0] font-body text-[1.8vw] font-medium tracking-wide">
+                {caption}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
     </div>
   );
 }

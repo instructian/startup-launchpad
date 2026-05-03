@@ -27,6 +27,15 @@ const rawData: Resource[] = [
   { id: "9", name: "Workshop Facilitators", category: "Workshops", classification: "Recommended", owner: "Faculty Partners", timing: "Monthly", risk: "Lower skill acquisition rate" },
   { id: "10", name: "Communications Channels", category: "Marketing", classification: "Essential", owner: "University Comms", timing: "Year-round", risk: "Low recruitment and visibility" },
   { id: "11", name: "Legal / IP Clinic Access", category: "Mentors", classification: "Stretch", owner: "Law School", timing: "Spring Y2", risk: "Teams lack structure for incorporation" },
+  { id: "12", name: "Ideathon Event Production", category: "Events", classification: "Essential", owner: "Program Director", timing: "Nov (Y1 & Y2)", risk: "No fall milestone — teams lose momentum and direction" },
+  { id: "13", name: "Innovation Festival Production", category: "Events", classification: "Essential", owner: "Smith Center", timing: "Apr (Y1 & Y2)", risk: "No validation or launch milestone — program lacks visible output" },
+  { id: "14", name: "Sunstone Application Support", category: "Events", classification: "Essential", owner: "Program Director + Teams", timing: "Spring Y2", risk: "Teams not ready for external competition; university loses pipeline credibility" },
+  { id: "15", name: "Ideathon Prize Pool", category: "Events", classification: "Recommended", owner: "Advancement", timing: "Nov (Y1 & Y2)", risk: "Lower team motivation and event energy" },
+  { id: "16", name: "Innovation Festival Judges Coordination", category: "Events", classification: "Essential", owner: "Program Director", timing: "Mar–Apr (Y1 & Y2)", risk: "No external feedback; pitch stage lacks legitimacy" },
+  { id: "17", name: "Event AV / Production Equipment", category: "Events", classification: "Recommended", owner: "Facilities / IT", timing: "Nov & Apr", risk: "Poor presentation quality reduces student confidence and stakeholder impression" },
+  { id: "18", name: "Event Catering & Venue", category: "Events", classification: "Recommended", owner: "Smith Center", timing: "Nov & Apr", risk: "Reduced attendance and community-building opportunity" },
+  { id: "19", name: "Livestream / Recording Setup", category: "Events", classification: "Stretch", owner: "Media Lab", timing: "Innovation Festival", risk: "Cannot share event with remote alumni, sponsors, or press" },
+  { id: "20", name: "Prototype Fund / Materials Budget", category: "Events", classification: "Recommended", owner: "Advancement / Center", timing: "Spring Y1 onwards", risk: "Teams cannot demonstrate working prototypes at events" },
 ];
 
 export default function ResourcesPage() {

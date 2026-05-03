@@ -87,7 +87,7 @@ export default function Proposal() {
               href="/resources"
               className="flex items-center gap-1.5 px-3 py-1.5 border border-white/20 hover:border-white/40 rounded text-sm font-display font-semibold text-white/80 hover:text-white transition-colors"
             >
-              Resources
+              Resources Manifest
             </Link>
             <Link
               href="/faq"
@@ -480,6 +480,13 @@ export default function Proposal() {
               ]}
               colWidths={["45%", "18%", "37%"]}
             />
+            <Callout>
+              <strong>Full Resources Manifest:</strong> A detailed breakdown of all required resources, tooling, personnel, and infrastructure is available in the{" "}
+              <Link href="/resources" className="text-[#D4882A] font-semibold underline hover:opacity-80 transition-opacity">
+                Resources Manifest
+              </Link>
+              , including specifications, sourcing notes, and procurement priorities.
+            </Callout>
           </section>
 
           {/* ── BUDGET FRAMEWORK ── */}

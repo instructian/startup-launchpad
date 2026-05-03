@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "wouter";
 
 const SECTIONS = [
   { id: "exec-summary", label: "Executive Summary" },
@@ -63,6 +64,21 @@ export function TableOfContents() {
           );
         })}
       </ul>
+
+      {/* Resources Manifest link */}
+      <div className="mt-4 px-1">
+        <Link
+          href="/resources"
+          className="flex items-center gap-2 px-3 py-2 rounded text-sm font-display font-semibold text-[#D4882A] border border-[#D4882A]/30 hover:border-[#D4882A]/60 hover:bg-[#D4882A]/5 transition-all duration-150"
+        >
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2h5.5L10 4.5V11H2V2z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/>
+            <path d="M7.5 2v2.5H10" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/>
+            <path d="M4 6.5h5M4 8.5h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          </svg>
+          Resources Manifest
+        </Link>
+      </div>
 
       {/* Print / Download button */}
       <button

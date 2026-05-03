@@ -14,6 +14,7 @@ const SEMESTERS = [
     judging: "Problem clarity, urgency, team potential",
     launchpadModules: ["Problem Framing", "Team Role Mapping"],
     deliverable: "Problem brief, user segment, solution thesis",
+    milestoneNum: "M1",
   },
   {
     id: "spring-y1",
@@ -28,6 +29,7 @@ const SEMESTERS = [
     judging: "Customer evidence, prototype learning",
     launchpadModules: ["Customer Discovery", "Business Model Assumptions"],
     deliverable: "Customer interviews, early prototype, evidence record",
+    milestoneNum: "M2",
   },
   {
     id: "fall-y2",
@@ -42,6 +44,7 @@ const SEMESTERS = [
     judging: "MVP progress, traction target, feasibility",
     launchpadModules: ["Prototype Planning", "Pitch Builder"],
     deliverable: "MVP/pilot, business model, traction target",
+    milestoneNum: "M3",
   },
   {
     id: "spring-y2",
@@ -56,6 +59,7 @@ const SEMESTERS = [
     judging: "Desirability, feasibility, viability, traction",
     launchpadModules: ["Pitch Builder", "Business Model Assumptions"],
     deliverable: "Traction, business plan, go-to-market, financials",
+    milestoneNum: "M4",
   },
 ];
 
@@ -90,8 +94,13 @@ export const DiagramABlueprint = () => {
       <div className="flex flex-1 gap-1 relative z-10 min-h-0">
         {SEMESTERS.map((s, i) => (
           <div key={s.id} className="flex-1 flex flex-col border border-[#F7F5F0] border-opacity-15 relative">
+            {/* Milestone number badge */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-30 w-6 h-6 rounded-full border-2 border-[#D4882A] bg-[#0D2240] flex items-center justify-center">
+              <span className="text-[8px] font-mono text-[#D4882A] font-bold">{s.milestoneNum}</span>
+            </div>
+
             {/* Semester header */}
-            <div className="px-3 py-2 border-b border-opacity-20" style={{ borderColor: s.color }}>
+            <div className="px-3 py-2 border-b border-opacity-20 mt-2" style={{ borderColor: s.color }}>
               <div className="font-display text-lg uppercase tracking-wider" style={{ color: s.color }}>{s.label} <span className="opacity-50 text-base">{s.theme}</span></div>
               <div className="text-[10px] font-mono opacity-50 uppercase">{s.period}</div>
             </div>
@@ -134,33 +143,47 @@ export const DiagramABlueprint = () => {
               <div className="text-[9px] mt-1 opacity-50 font-mono">Deliverable: {s.deliverable}</div>
             </div>
 
-            {/* Milestone / event */}
-            <div className="px-3 py-2 relative">
-              <div className="text-[9px] font-mono uppercase tracking-widest text-[#D4882A] mb-1">Culminating Event</div>
+            {/* Milestone badge / culminating event — enhanced */}
+            <div className="px-3 py-2 relative" style={{ backgroundColor: "rgba(212,136,42,0.10)", borderTop: "2px solid #D4882A" }}>
+              {/* Milestone badge pill */}
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <span className="text-[8px] font-mono uppercase tracking-widest bg-[#D4882A] text-[#0D2240] px-1.5 py-0.5 font-bold">Pitch Milestone</span>
+                <span className="text-[8px] font-mono opacity-40">{s.milestoneNum}</span>
+              </div>
               <div className="font-display text-base uppercase tracking-wide">{s.event}</div>
-              <div className="text-xs font-mono opacity-70">{s.pitch}</div>
-              <div className="text-[9px] font-mono opacity-40 mt-0.5">{s.eventDate}</div>
+              <div className="inline-block text-xs font-mono font-bold bg-[#F7F5F0] bg-opacity-15 px-2 py-0.5 mt-0.5 border border-[#D4882A] border-opacity-50">{s.pitch}</div>
+              <div className="text-[9px] font-mono opacity-50 mt-1">{s.eventDate}</div>
               <div className="text-[8px] opacity-40 mt-0.5 italic">Judged on: {s.judging}</div>
-              {/* Milestone dot on timeline */}
-              <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-[#D4882A] bg-[#0D2240]"></div>
             </div>
 
-            {/* Arrow to next */}
+            {/* Arrow to next with label */}
             {i < SEMESTERS.length - 1 && (
-              <div className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 z-20 text-[#D4882A] text-xs">&#9658;</div>
+              <div className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-0.5">
+                <span className="text-[#D4882A] text-base leading-none">&#9658;</span>
+                <span className="text-[7px] font-mono text-[#D4882A] opacity-50 uppercase whitespace-nowrap">Next Sem</span>
+              </div>
             )}
           </div>
         ))}
 
-        {/* Sunstone */}
-        <div className="flex items-center justify-center flex-shrink-0 ml-2">
-          <div className="flex flex-col items-center gap-1">
-            <div className="w-16 h-16 rotate-45 border-4 border-[#D4882A] bg-[#071628] z-30 flex items-center justify-center shadow-xl">
+        {/* Arrow to Sunstone */}
+        <div className="flex items-center flex-shrink-0 ml-0.5">
+          <div className="flex flex-col items-center gap-0.5">
+            <span className="text-[#D4882A] text-base leading-none">&#9658;</span>
+            <span className="text-[7px] font-mono text-[#D4882A] opacity-50 uppercase whitespace-nowrap">Qualify</span>
+          </div>
+        </div>
+
+        {/* Sunstone — enlarged and more prominent */}
+        <div className="flex items-center justify-center flex-shrink-0 ml-1">
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-20 h-20 rotate-45 border-4 border-[#D4882A] bg-[#071628] z-30 flex items-center justify-center shadow-2xl" style={{ boxShadow: "0 0 24px rgba(212,136,42,0.4)" }}>
               <div className="-rotate-45 text-center leading-tight">
-                <div className="font-display uppercase text-xs text-[#D4882A] leading-snug">Sun<br/>stone</div>
+                <div className="font-display uppercase text-sm text-[#D4882A] leading-snug font-bold">Sun<br/>stone</div>
               </div>
             </div>
-            <div className="text-[9px] font-mono uppercase opacity-40 text-center">Advanced<br/>Venture<br/>Competition</div>
+            <div className="text-[9px] font-mono uppercase text-[#D4882A] opacity-60 text-center font-bold">Graduation</div>
+            <div className="text-[8px] font-mono uppercase opacity-40 text-center">Advanced<br/>Venture<br/>Competition</div>
           </div>
         </div>
       </div>
@@ -180,13 +203,13 @@ export const DiagramABlueprint = () => {
             </div>
           </div>
           <div>
-            <h4 className="font-display uppercase tracking-wider text-[#D4882A] text-xs border-b border-[#D4882A] border-opacity-40 pb-1 mb-2">Pitch Events &amp; Calendar</h4>
+            <h4 className="font-display uppercase tracking-wider text-[#D4882A] text-xs border-b border-[#D4882A] border-opacity-40 pb-1 mb-2">Pitch Milestones &amp; Calendar</h4>
             <div className="space-y-1">
               {SEMESTERS.map(s => (
                 <div key={s.id} className="flex items-center gap-2 text-xs opacity-70">
-                  <div className="w-2 h-2 rounded-full border border-[#D4882A]"></div>
+                  <span className="text-[8px] font-mono bg-[#D4882A] text-[#0D2240] px-1 font-bold">{s.milestoneNum}</span>
                   <span>{s.event}</span>
-                  <span className="opacity-50">({s.pitch})</span>
+                  <span className="font-bold opacity-90 border border-[#D4882A] border-opacity-40 px-1 text-[10px] font-mono">{s.pitch}</span>
                   <span className="opacity-40 font-mono text-[10px]">— {s.eventDate}</span>
                 </div>
               ))}
@@ -208,18 +231,10 @@ export const DiagramABlueprint = () => {
             </div>
           </div>
           <div>
-            <h4 className="font-display uppercase tracking-wider text-[#D4882A] text-xs border-b border-[#D4882A] border-opacity-40 pb-1 mb-2">Launchpad Tool Modules</h4>
-            <div className="space-y-0.5 text-[9px] opacity-60 font-mono">
-              {["Problem Framing", "Customer Discovery", "Prototype Planning", "Business Model Assumptions", "Team Role Mapping", "Pitch Builder"].map(m => (
-                <div key={m} className="flex items-center gap-1"><span className="w-1.5 h-1.5 bg-[#D4882A] opacity-50"></span>{m}</div>
-              ))}
-            </div>
-          </div>
-          <div>
             <h4 className="font-display uppercase tracking-wider text-[#D4882A] text-xs border-b border-[#D4882A] border-opacity-40 pb-1 mb-2">Entry-Point Markers</h4>
             <div className="space-y-1 text-[9px] opacity-60">
-              <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-full border-2 border-[#D4882A] bg-[#071628]"></div><span>Pitch milestone dot (semester end)</span></div>
-              <div className="flex items-center gap-1.5"><span className="text-[#D4882A]">&#9658;</span><span>Progression arrow (semester to semester)</span></div>
+              <div className="flex items-center gap-1.5"><span className="text-[8px] font-mono bg-[#D4882A] text-[#0D2240] px-1 font-bold">M#</span><span>Pitch milestone badge (semester end)</span></div>
+              <div className="flex items-center gap-1.5"><span className="text-[#D4882A]">&#9658;</span><span className="text-[8px] font-mono uppercase">Next Sem</span><span>Progression arrow (semester to semester)</span></div>
               <div className="flex items-center gap-1.5"><div className="w-3 h-3 rotate-45 border-2 border-[#D4882A]"></div><span>Sunstone — final destination (Spring Y2)</span></div>
               <div className="text-[8px] opacity-50 mt-1 italic">Diagram A models the full 4-semester journey.<br/>For student entry-track details, see Diagram B.</div>
             </div>

@@ -13,6 +13,7 @@ const NODES = [
     event: "Ideathon", pitch: "90-sec pitch", eventDate: "Late Nov, Y1",
     launchpad: ["Problem Framing", "Team Role Mapping"],
     deliverable: "Problem brief, user segment",
+    milestoneNum: "M1",
     tilt: "-rotate-1",
     translate: "-translate-y-10",
     iconTilt: "-rotate-6",
@@ -29,6 +30,7 @@ const NODES = [
     event: "Innovation Festival", pitch: "3-min pitch", eventDate: "Late Apr, Y1",
     launchpad: ["Customer Discovery", "Business Model Assumptions"],
     deliverable: "Customer interviews, prototype",
+    milestoneNum: "M2",
     tilt: "rotate-1",
     translate: "translate-y-10",
     iconTilt: "rotate-6",
@@ -45,6 +47,7 @@ const NODES = [
     event: "Adv. Ideathon", pitch: "5-min pitch", eventDate: "Late Nov, Y2",
     launchpad: ["Prototype Planning", "Pitch Builder"],
     deliverable: "MVP/pilot, business model",
+    milestoneNum: "M3",
     tilt: "-rotate-1",
     translate: "-translate-y-10",
     iconTilt: "-rotate-3",
@@ -63,6 +66,7 @@ const NODES = [
     event: "Innovation Festival", pitch: "7–10 min pitch", eventDate: "Late Apr, Y2",
     launchpad: ["Pitch Builder", "Business Model Assumptions"],
     deliverable: "Business plan, traction, go-to-market",
+    milestoneNum: "M4",
     tilt: "rotate-1",
     translate: "translate-y-10",
     iconTilt: "rotate-3",
@@ -126,9 +130,14 @@ export const DiagramANarrative = () => {
                       {n.activities.map(a => <li key={a} className="flex items-center gap-1">&#8226; {a}</li>)}
                     </ul>
                     <div className="text-[9px] mb-1 opacity-60 italic">Launchpad: {n.launchpad.join(", ")}</div>
+                    {/* Pitch milestone callout */}
                     <div className="pt-1.5 border-t border-dashed" style={{ borderColor: n.dotBorder + "50" }}>
+                      <div className="flex items-center justify-center gap-1 mb-0.5">
+                        <span className="text-[7px] font-bold uppercase tracking-wider px-1 py-0.5 rounded-sm" style={{ backgroundColor: n.dotBg, color: n.color }}>{n.milestoneNum} · Pitch</span>
+                      </div>
                       <div className="text-[10px] font-bold" style={{ color: n.color }}>{n.event}</div>
-                      <div className="text-[9px] text-[#8a7664]">{n.pitch} &bull; {n.eventDate}</div>
+                      <div className="inline-block text-[9px] font-bold px-1.5 py-0.5 rounded mt-0.5" style={{ backgroundColor: n.dotBg, color: n.color }}>{n.pitch}</div>
+                      <div className="text-[8px] text-[#8a7664] mt-0.5">{n.eventDate}</div>
                     </div>
                   </div>
 
@@ -140,20 +149,29 @@ export const DiagramANarrative = () => {
                   )}
                 </div>
 
-                {/* Arrow between nodes */}
+                {/* Labeled arrow between nodes */}
                 {i < NODES.length - 1 && (
-                  <div className="flex-shrink-0 text-[#D4882A] opacity-40 text-lg">&#8594;</div>
+                  <div className="flex-shrink-0 flex flex-col items-center gap-0.5">
+                    <span className="text-[#D4882A] opacity-60 text-lg leading-none">&#8594;</span>
+                    <span className="text-[7px] font-serif italic text-[#D4882A] opacity-40 whitespace-nowrap">Next Sem</span>
+                  </div>
                 )}
               </React.Fragment>
             ))}
 
-            {/* Arrow + Sunstone */}
-            <div className="flex-shrink-0 text-[#D4882A] opacity-40 text-lg">&#8594;</div>
-            <div className="flex flex-col items-center gap-1 flex-shrink-0">
-              <div className="w-14 h-14 bg-[#D4882A] rotate-45 border-2 border-[#0D2240] flex items-center justify-center shadow-lg">
-                <div className="-rotate-45 text-[#0D2240] font-bold text-center leading-none text-xs font-display uppercase">Sun<br/>stone</div>
+            {/* Arrow + Sunstone — labeled */}
+            <div className="flex-shrink-0 flex flex-col items-center gap-0.5">
+              <span className="text-[#D4882A] opacity-60 text-lg leading-none">&#8594;</span>
+              <span className="text-[7px] font-serif italic text-[#D4882A] opacity-40 whitespace-nowrap">Qualify</span>
+            </div>
+
+            {/* Sunstone — enlarged and prominent */}
+            <div className="flex flex-col items-center gap-1.5 flex-shrink-0">
+              <div className="w-20 h-20 bg-[#D4882A] rotate-45 border-4 border-[#0D2240] flex items-center justify-center shadow-2xl" style={{ boxShadow: "0 0 24px rgba(212,136,42,0.45)" }}>
+                <div className="-rotate-45 text-[#0D2240] font-bold text-center leading-tight text-sm font-display uppercase">Sun<br/>stone</div>
               </div>
-              <span className="text-[9px] uppercase tracking-widest text-[#7c4422] opacity-50 text-center">Advanced<br/>Venture</span>
+              <span className="text-[9px] uppercase tracking-widest text-[#D4882A] opacity-80 text-center font-bold">Graduation</span>
+              <span className="text-[8px] uppercase tracking-widest text-[#7c4422] opacity-40 text-center">Advanced<br/>Venture</span>
             </div>
           </div>
         </div>
@@ -187,20 +205,17 @@ export const DiagramANarrative = () => {
             <div className="w-8 h-0.5 border-t-2 border-dashed border-[#D4882A] opacity-30"></div>
             <span className="text-xs text-[#4A3B32]">Progression pathway</span>
           </div>
-          {[
-            { event: "Ideathon", pitch: "90 sec", date: "Late Nov, Y1" },
-            { event: "Innovation Festival", pitch: "3 min", date: "Late Apr, Y1" },
-            { event: "Adv. Ideathon", pitch: "5 min", date: "Late Nov, Y2" },
-            { event: "Innovation Festival", pitch: "7–10 min", date: "Late Apr, Y2 (Sunstone qualifier)" },
-          ].map(e => (
-            <div key={e.event + e.pitch} className="flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D4882A] opacity-60 flex-shrink-0"></span>
-              <span className="text-[9px] text-[#4A3B32]">{e.event} ({e.pitch}) — {e.date}</span>
-            </div>
-          ))}
+          <div className="border-l border-[#eaddce] pl-3 flex items-center gap-3 flex-wrap">
+            {NODES.map(n => (
+              <div key={n.id + "-pitch"} className="flex items-center gap-1">
+                <span className="text-[7px] font-bold px-1 py-0.5 rounded-sm" style={{ backgroundColor: n.dotBg, color: n.color }}>{n.milestoneNum}</span>
+                <span className="text-[9px] text-[#4A3B32]">{n.event} — <strong>{n.pitch}</strong> — {n.eventDate}</span>
+              </div>
+            ))}
+          </div>
           <div className="w-full border-t border-dashed border-[#eaddce] pt-1.5 mt-0.5 flex items-center gap-4 flex-wrap">
             <span className="text-[9px] font-bold text-[#7c4422] italic">Entry-Point Markers:</span>
-            <div className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#D4882A] opacity-60"></span><span className="text-[9px] text-[#4A3B32]">Pitch milestone dot = semester-end event</span></div>
+            <div className="flex items-center gap-1"><span className="text-[7px] font-bold bg-[#eaddce] text-[#7c4422] px-1 py-0.5 rounded-sm">M# · Pitch</span><span className="text-[9px] text-[#4A3B32]">pitch milestone badge = semester-end event</span></div>
             <div className="flex items-center gap-1"><div className="w-3 h-3 rotate-45 border bg-[#D4882A]" style={{ borderColor: "#0D2240" }}></div><span className="text-[9px] text-[#4A3B32]">Sunstone = final destination (Spring Y2)</span></div>
             <span className="text-[9px] italic text-[#8a7664]">Diagram A = the full 4-semester journey. For student entry tracks, see Diagram B.</span>
           </div>

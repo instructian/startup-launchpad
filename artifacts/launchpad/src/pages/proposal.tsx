@@ -1,17 +1,30 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { CheckCircle2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CheckCircle2, Printer } from "lucide-react";
 
 export default function ProposalPage() {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl print:p-0 print:m-0 print:max-w-full">
       <div className="mb-12 print:mb-6">
-        <h1 className="text-4xl font-serif font-black text-slate-900 tracking-tight mb-2">Startup Launchpad</h1>
-        <h2 className="text-2xl font-serif text-slate-600 mb-6">A Four-Semester Innovation Mindset Program</h2>
-        <div className="flex gap-4 text-sm font-medium text-slate-500 uppercase tracking-wider">
-          <span>Smith Center</span>
-          <span>&bull;</span>
-          <span>Version 0.1</span>
+        <div className="flex items-start justify-between gap-4 mb-6">
+          <div>
+            <h1 className="text-4xl font-serif font-black text-slate-900 tracking-tight mb-2">Startup Launchpad</h1>
+            <h2 className="text-2xl font-serif text-slate-600 mb-4">A Four-Semester Innovation Mindset Program</h2>
+            <div className="flex gap-4 text-sm font-medium text-slate-500 uppercase tracking-wider">
+              <span>Smith Center</span>
+              <span>&bull;</span>
+              <span>Version 0.1</span>
+            </div>
+          </div>
+          <Button
+            variant="outline"
+            className="print:hidden shrink-0 gap-2"
+            onClick={() => window.print()}
+          >
+            <Printer className="h-4 w-4" />
+            Print / Save as PDF
+          </Button>
         </div>
       </div>
 
@@ -22,7 +35,7 @@ export default function ProposalPage() {
         </p>
       </div>
 
-      <section className="mb-12 print:mb-8">
+      <section className="mb-12 print:mb-8 print:break-inside-avoid-page">
         <h3 className="text-2xl font-serif font-bold border-b pb-2 mb-6">1. Problem and Opportunity</h3>
         <p className="mb-4 text-slate-700 leading-relaxed">
           Many students are interested in innovation but do not know how to move from curiosity to a credible venture. They may lack a team, customer validation skills, technical capability, design support, storytelling practice, or confidence navigating entrepreneurship resources. Existing events can create excitement, but without a structured pathway students often lose momentum after a pitch night.
@@ -32,7 +45,7 @@ export default function ProposalPage() {
         </p>
       </section>
 
-      <section className="mb-12 print:mb-8">
+      <section className="mb-12 print:mb-8 print:break-before-page">
         <h3 className="text-2xl font-serif font-bold border-b pb-2 mb-6">2. Program Model & Entry Tracks</h3>
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <Card>
@@ -62,7 +75,7 @@ export default function ProposalPage() {
         </div>
       </section>
 
-      <section className="mb-12 print:mb-8">
+      <section className="mb-12 print:mb-8 print:break-before-page">
         <h3 className="text-2xl font-serif font-bold border-b pb-2 mb-6">3. Four-Semester Roadmap</h3>
         <div className="border rounded-lg overflow-hidden">
           <Table>
@@ -104,7 +117,7 @@ export default function ProposalPage() {
         </div>
       </section>
 
-      <section className="mb-12 print:mb-8">
+      <section className="mb-12 print:mb-8 print:break-inside-avoid-page">
         <h3 className="text-2xl font-serif font-bold border-b pb-2 mb-6">4. Event Ladder</h3>
         <div className="border rounded-lg overflow-hidden">
           <Table>
@@ -146,7 +159,7 @@ export default function ProposalPage() {
         </div>
       </section>
 
-      <section className="mb-12 print:mb-8">
+      <section className="mb-12 print:mb-8 print:break-before-page">
         <h3 className="text-2xl font-serif font-bold border-b pb-2 mb-6">5. Resource Map</h3>
         <p className="mb-4 text-slate-600 text-sm">Summary of essential operational requirements by category. See the Resources Manifest for the full inventory including Recommended and Stretch items.</p>
         <div className="border rounded-lg overflow-hidden">
@@ -219,7 +232,7 @@ export default function ProposalPage() {
         </div>
       </section>
 
-      <section className="mb-12 print:mb-8">
+      <section className="mb-12 print:mb-8 print:break-inside-avoid-page">
         <h3 className="text-2xl font-serif font-bold border-b pb-2 mb-6">6. Risks and Mitigations</h3>
         <div className="border rounded-lg overflow-hidden">
           <Table>

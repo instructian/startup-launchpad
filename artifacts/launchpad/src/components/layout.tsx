@@ -18,7 +18,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-background flex flex-col font-sans">
-      <header className="sticky top-0 z-40 w-full border-b bg-primary text-primary-foreground shadow-sm">
+      <header className="sticky top-0 z-40 w-full border-b bg-primary text-primary-foreground shadow-sm print:hidden">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="bg-white text-primary p-1.5 rounded-sm">

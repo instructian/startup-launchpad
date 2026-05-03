@@ -1,5 +1,6 @@
 import { TableOfContents } from "@/components/TableOfContents";
 import { Printer } from "lucide-react";
+import { Link } from "wouter";
 
 function SectionHeading({ num, id, title }: { num: number; id: string; title: string }) {
   return (
@@ -81,6 +82,12 @@ export default function Proposal() {
               <div className="text-[10px] text-[#8A99AA] tracking-widest uppercase mt-0.5">Smith Center for Entrepreneurship · Program Proposal</div>
             </div>
           </div>
+          <Link
+            href="/faq"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 border border-white/20 hover:border-white/40 rounded text-sm font-display font-semibold text-white/80 hover:text-white transition-colors"
+          >
+            FAQ
+          </Link>
           <button
             onClick={() => window.print()}
             className="flex items-center gap-1.5 px-3 py-1.5 bg-[#D4882A] hover:bg-[#c07820] rounded text-sm font-display font-semibold transition-colors"

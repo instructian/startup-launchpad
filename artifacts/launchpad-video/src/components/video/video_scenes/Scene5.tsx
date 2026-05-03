@@ -213,16 +213,6 @@ export function Scene5() {
                         </motion.text>
                       );
                     })()}
-                    {/* Arrowhead on each arc */}
-                    {i < LOOP_NODES.length - 1 && (() => {
-                      // Arrowhead at start of next node
-                      const nextAngle = LOOP_NODES[(i + 1) % LOOP_NODES.length].angle;
-                      const midAngle = (node.angle + nextAngle) / 2;
-                      const rad = (midAngle * Math.PI) / 180;
-                      const ax = CX + R * Math.cos(rad);
-                      const ay = CY + R * Math.sin(rad);
-                      return null; // Arrow handled by arc path animation
-                    })()}
                   </g>
                 );
               })}

@@ -1,10 +1,9 @@
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export function Scene4() {
   const [phase, setPhase] = useState(0);
   const [count, setCount] = useState(0);
-  const counterControls = useAnimation();
 
   useEffect(() => {
     const timers = [

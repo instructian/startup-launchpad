@@ -1,116 +1,199 @@
 import React from "react";
 
+const TRACKS = [
+  {
+    id: "explorer",
+    label: "The Explorer",
+    entry: "Starts at Discover (Fall Y1)",
+    entryColor: "#7c4422",
+    cardBg: "bg-white/60",
+    cardBorder: "border-[#eaddce]",
+    shadow: "shadow-[6px_6px_0_rgba(234,221,206,0.6)]",
+    tilt: "-rotate-1",
+    iconBg: "#0D2240",
+    quote: '"I have a passion, but no idea yet."',
+    quoteColor: "text-[#7c4422]",
+    brings: "Curiosity & design thinking mindset",
+    commitment: "Full 4 semesters",
+    description: "The full four-semester journey. Form a team, discover a problem, validate with customers, build a product, and launch to market.",
+    dotColor: "#eaddce",
+    dotBorder: "#7c4422",
+  },
+  {
+    id: "joiner",
+    label: "The Joiner",
+    entry: "Spring Y1 or Fall Y2 (Rolling)",
+    entryColor: "#5b7a61",
+    cardBg: "bg-white/60",
+    cardBorder: "border-[#d8e2da]",
+    shadow: "shadow-[6px_6px_0_rgba(216,226,218,0.6)]",
+    tilt: "rotate-1",
+    iconBg: "#5b7a61",
+    quote: '"I want to help build something real."',
+    quoteColor: "text-[#5b7a61]",
+    brings: "Execution skills, complementary expertise",
+    commitment: "2–3 semesters",
+    description: "Joins an existing team when execution resources are needed. Brings fresh energy right when the team is ready to validate or build.",
+    dotColor: "#d8e2da",
+    dotBorder: "#5b7a61",
+  },
+  {
+    id: "accelerator",
+    label: "The Accelerator",
+    entry: "Enters at Build (Fall Y2)",
+    entryColor: "#b5651d",
+    cardBg: "bg-white/60",
+    cardBorder: "border-[#f4dcc2]",
+    shadow: "shadow-[6px_6px_0_rgba(244,220,194,0.6)]",
+    tilt: "-rotate-1",
+    iconBg: "#b5651d",
+    quote: '"We already have traction. We need resources."',
+    quoteColor: "text-[#b5651d]",
+    brings: "Existing venture, prior startup experience",
+    commitment: "2 semesters",
+    description: "Skips early phases. Perfect for transfers or upperclassmen who already have an idea with momentum. Enters at Build and gets deep mentorship.",
+    dotColor: "#f4dcc2",
+    dotBorder: "#b5651d",
+  },
+  {
+    id: "contributor",
+    label: "The Contributor",
+    entry: "Anytime — Project-Based (Rolling)",
+    entryColor: "#6b5b68",
+    cardBg: "bg-white/60",
+    cardBorder: "border-[#d3c8d1]",
+    shadow: "shadow-[6px_6px_0_rgba(211,200,209,0.6)]",
+    tilt: "rotate-1",
+    iconBg: "#6b5b68",
+    quote: '"I have skills and want to do real work."',
+    quoteColor: "text-[#6b5b68]",
+    brings: "Design, development, video, marketing",
+    commitment: "Project-based / Part-time",
+    description: "Acts as an agency resource for the cohort. Builds portfolio while helping multiple startups. No full team commitment required.",
+    dotColor: "#d3c8d1",
+    dotBorder: "#6b5b68",
+  },
+];
+
 export const DiagramBNarrative = () => {
   return (
-    <div className="w-full h-full bg-[#FDF8EE] text-[#4A3B32] font-sans relative overflow-hidden p-16 flex flex-col">
-      {/* Hand-drawn paper texture effect */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" style={{ zIndex: 1 }}>
-        <filter id="noise2">
+    <div className="w-full h-full bg-[#FDF8EE] text-[#4A3B32] font-sans relative overflow-hidden p-10 flex flex-col">
+      {/* Paper texture */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-15" style={{ zIndex: 1 }}>
+        <filter id="noise-b-narr">
           <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/>
-          <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.1 0" />
+          <feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 0.08 0" />
         </filter>
-        <rect width="100%" height="100%" filter="url(#noise2)" />
+        <rect width="100%" height="100%" filter="url(#noise-b-narr)" />
       </svg>
 
-      <div className="relative z-10 flex-1 flex flex-col">
+      <div className="relative z-10 flex-1 flex flex-col min-h-0">
         {/* Title */}
-        <div className="text-center mb-12">
-          <h2 className="text-5xl font-serif text-[#7c4422] italic mb-2" style={{ fontFamily: 'Georgia, serif' }}>Four Paths to the Summit</h2>
-          <p className="text-lg uppercase tracking-[0.2em] text-[#8a7664]">Where will you begin?</p>
-        </div>
-
-        {/* Main content area */}
-        <div className="flex-1 flex gap-8">
-          
-          {/* Timeline backbone visualization - Mountain/Path metaphor */}
-          <div className="w-32 flex flex-col justify-between py-8 items-center border-r-2 border-dashed border-[#d8cbb8]">
-             <div className="text-center">
-               <div className="w-4 h-4 rounded-full bg-[#eaddce] border border-[#7c4422] mx-auto mb-2"></div>
-               <span className="text-xs uppercase tracking-widest font-bold text-[#7c4422]">Discover</span>
-             </div>
-             <div className="w-1 h-12 bg-gradient-to-b from-[#eaddce] to-[#d8e2da]"></div>
-             <div className="text-center">
-               <div className="w-4 h-4 rounded-full bg-[#d8e2da] border border-[#5b7a61] mx-auto mb-2"></div>
-               <span className="text-xs uppercase tracking-widest font-bold text-[#5b7a61]">Validate</span>
-             </div>
-             <div className="w-1 h-12 bg-gradient-to-b from-[#d8e2da] to-[#f4dcc2]"></div>
-             <div className="text-center">
-               <div className="w-4 h-4 rounded-full bg-[#f4dcc2] border border-[#b5651d] mx-auto mb-2"></div>
-               <span className="text-xs uppercase tracking-widest font-bold text-[#b5651d]">Build</span>
-             </div>
-             <div className="w-1 h-12 bg-gradient-to-b from-[#f4dcc2] to-[#ecd8d8]"></div>
-             <div className="text-center">
-               <div className="w-6 h-6 rounded-full bg-[#ecd8d8] border-2 border-[#9c3f3f] mx-auto mb-2"></div>
-               <span className="text-xs uppercase tracking-widest font-bold text-[#9c3f3f]">Launch</span>
-             </div>
-          </div>
-
-          {/* Cards for each track */}
-          <div className="flex-1 grid grid-cols-2 gap-8">
-            
-            {/* Explorer */}
-            <div className="bg-white/60 p-8 rounded-xl border border-[#eaddce] shadow-[8px_8px_0_rgba(234,221,206,0.5)] transform -rotate-1 hover:rotate-0 transition-transform">
-               <div className="flex items-center gap-4 mb-4">
-                 <div className="w-12 h-12 bg-[#0D2240] rounded-full flex items-center justify-center text-[#FDF8EE]">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                 </div>
-                 <div>
-                   <h3 className="font-serif text-3xl text-[#0D2240]">The Explorer</h3>
-                   <span className="text-xs uppercase tracking-widest font-bold text-[#8a7664] bg-[#eaddce] px-2 py-1 rounded">Starts at Discover</span>
-                 </div>
-               </div>
-               <p className="italic text-[#7c4422] mb-4">"I have a passion for solving problems, but I don't have an idea or a team yet."</p>
-               <p className="text-sm">The traditional four-semester path. You'll learn the fundamentals of design thinking, form a team organically, and build from the ground up.</p>
-            </div>
-
-            {/* Joiner */}
-            <div className="bg-white/60 p-8 rounded-xl border border-[#d8e2da] shadow-[8px_8px_0_rgba(216,226,218,0.5)] transform rotate-1 hover:rotate-0 transition-transform">
-               <div className="flex items-center gap-4 mb-4">
-                 <div className="w-12 h-12 bg-[#5b7a61] rounded-full flex items-center justify-center text-[#FDF8EE]">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                 </div>
-                 <div>
-                   <h3 className="font-serif text-3xl text-[#5b7a61]">The Joiner</h3>
-                   <span className="text-xs uppercase tracking-widest font-bold text-[#8a7664] bg-[#d8e2da] px-2 py-1 rounded">Starts at Validate</span>
-                 </div>
-               </div>
-               <p className="italic text-[#5b7a61] mb-4">"I want to help build something real, but I'd rather join an existing vision."</p>
-               <p className="text-sm">You hop onto a team that formed during the Discover phase. You bring execution energy right when the team needs to validate their MVP with real customers.</p>
-            </div>
-
-            {/* Accelerator */}
-            <div className="bg-white/60 p-8 rounded-xl border border-[#f4dcc2] shadow-[8px_8px_0_rgba(244,220,194,0.5)] transform -rotate-1 hover:rotate-0 transition-transform">
-               <div className="flex items-center gap-4 mb-4">
-                 <div className="w-12 h-12 bg-[#b5651d] rounded-full flex items-center justify-center text-[#FDF8EE]">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                 </div>
-                 <div>
-                   <h3 className="font-serif text-3xl text-[#b5651d]">The Accelerator</h3>
-                   <span className="text-xs uppercase tracking-widest font-bold text-[#8a7664] bg-[#f4dcc2] px-2 py-1 rounded">Starts at Build</span>
-                 </div>
-               </div>
-               <p className="italic text-[#b5651d] mb-4">"We already have a prototype and traction. We need resources to scale."</p>
-               <p className="text-sm">Perfect for transfer students or upperclassmen who have already started a venture. You skip the early phases and get direct access to deep mentorship and funding prep.</p>
-            </div>
-
-            {/* Contributor */}
-            <div className="bg-white/60 p-8 rounded-xl border border-[#d3c8d1] shadow-[8px_8px_0_rgba(211,200,209,0.5)] transform rotate-1 hover:rotate-0 transition-transform">
-               <div className="flex items-center gap-4 mb-4">
-                 <div className="w-12 h-12 bg-[#6b5b68] rounded-full flex items-center justify-center text-[#FDF8EE]">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
-                 </div>
-                 <div>
-                   <h3 className="font-serif text-3xl text-[#6b5b68]">The Contributor</h3>
-                   <span className="text-xs uppercase tracking-widest font-bold text-[#8a7664] bg-[#d3c8d1] px-2 py-1 rounded">Anytime Entry</span>
-                 </div>
-               </div>
-               <p className="italic text-[#6b5b68] mb-4">"I have a specific skill (design, code, video) and want to do freelance-style work for startups."</p>
-               <p className="text-sm">You don't commit to a single team. Instead, you act as an agency resource for the cohort, building your portfolio while helping multiple startups launch.</p>
-            </div>
-
+        <div className="text-center mb-6">
+          <h2 className="text-4xl font-serif text-[#7c4422] italic mb-2" style={{ fontFamily: 'Georgia, serif' }}>Four Paths to the Summit</h2>
+          <p className="text-sm uppercase tracking-[0.3em] text-[#8a7664]">Where will your journey begin? &bull; Smith Center for Entrepreneurship</p>
+          <div className="mx-auto mt-3 w-32 h-[1px] bg-[#7c4422] opacity-25 relative">
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-[#FDF8EE] border border-[#7c4422] rotate-45"></div>
           </div>
         </div>
 
+        {/* Timeline spine + cards */}
+        <div className="flex-1 flex gap-6 min-h-0">
+
+          {/* Vertical timeline spine */}
+          <div className="w-28 flex-shrink-0 flex flex-col items-center py-2">
+            <div className="text-center mb-3">
+              <div className="w-3 h-3 rounded-full mx-auto mb-1" style={{ backgroundColor: "#eaddce", border: "2px solid #7c4422" }}></div>
+              <div className="text-[10px] uppercase tracking-widest font-bold text-[#7c4422] leading-tight">Discover<br/>Fall Y1</div>
+            </div>
+            <div className="w-px flex-1 bg-gradient-to-b from-[#eaddce] via-[#d8e2da] to-[#f4dcc2] opacity-60"></div>
+            <div className="text-center my-2">
+              <div className="w-3 h-3 rounded-full mx-auto mb-1" style={{ backgroundColor: "#d8e2da", border: "2px solid #5b7a61" }}></div>
+              <div className="text-[10px] uppercase tracking-widest font-bold text-[#5b7a61] leading-tight">Validate<br/>Spring Y1</div>
+            </div>
+            <div className="w-px flex-1 bg-gradient-to-b from-[#d8e2da] to-[#f4dcc2] opacity-60"></div>
+            <div className="text-center my-2">
+              <div className="w-3 h-3 rounded-full mx-auto mb-1" style={{ backgroundColor: "#f4dcc2", border: "2px solid #b5651d" }}></div>
+              <div className="text-[10px] uppercase tracking-widest font-bold text-[#b5651d] leading-tight">Build<br/>Fall Y2</div>
+            </div>
+            <div className="w-px flex-1 bg-gradient-to-b from-[#f4dcc2] to-[#ecd8d8] opacity-60"></div>
+            <div className="text-center my-2">
+              <div className="w-4 h-4 rounded-full mx-auto mb-1" style={{ backgroundColor: "#ecd8d8", border: "2px solid #9c3f3f" }}></div>
+              <div className="text-[10px] uppercase tracking-widest font-bold text-[#9c3f3f] leading-tight">Launch<br/>Spring Y2</div>
+            </div>
+            <div className="w-px h-4 bg-gradient-to-b from-[#ecd8d8] to-[#D4882A] opacity-60"></div>
+            <div className="text-center mt-1">
+              <div className="w-6 h-6 rotate-45 mx-auto mb-1" style={{ backgroundColor: "#D4882A", border: "2px solid #0D2240" }}></div>
+              <div className="text-[10px] uppercase tracking-widest font-bold text-[#D4882A] leading-tight">Sunstone</div>
+            </div>
+          </div>
+
+          {/* 2×2 grid of track cards */}
+          <div className="flex-1 grid grid-cols-2 gap-5 min-h-0">
+            {TRACKS.map((t) => (
+              <div
+                key={t.id}
+                className={`${t.cardBg} p-5 rounded-xl border ${t.cardBorder} ${t.shadow} ${t.tilt} hover:rotate-0 transition-transform flex flex-col`}
+              >
+                {/* Header */}
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-white flex-shrink-0" style={{ backgroundColor: t.iconBg }}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      {t.id === "explorer" && <><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></>}
+                      {t.id === "joiner" && <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>}
+                      {t.id === "accelerator" && <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>}
+                      {t.id === "contributor" && <><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></>}
+                    </svg>
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="font-serif text-xl leading-tight" style={{ color: t.iconBg, fontFamily: 'Georgia, serif' }}>{t.label}</h3>
+                    <div className="text-xs font-bold uppercase tracking-wide mt-0.5 px-2 py-0.5 rounded inline-block" style={{ color: t.entryColor, backgroundColor: t.dotColor }}>
+                      &#9654; {t.entry}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quote */}
+                <p className={`italic text-sm ${t.quoteColor} mb-2`}>{t.quote}</p>
+
+                {/* Description */}
+                <p className="text-xs text-[#4A3B32] opacity-80 mb-3 flex-1">{t.description}</p>
+
+                {/* Brings + Commitment */}
+                <div className="pt-2 border-t border-dashed" style={{ borderColor: t.dotBorder + "50" }}>
+                  <div className="text-[10px] text-[#8a7664] space-y-0.5">
+                    <div><span className="font-bold" style={{ color: t.entryColor }}>Brings:</span> {t.brings}</div>
+                    <div><span className="font-bold" style={{ color: t.entryColor }}>Commitment:</span> {t.commitment}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Legend */}
+        <div className="mt-4 bg-white/50 border border-[#eaddce] rounded-xl px-5 py-3 flex items-center gap-4 flex-wrap">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#7c4422] font-serif mr-1">Legend</span>
+          {[
+            { color: "#eaddce", border: "#7c4422", label: "Discover (Fall Y1)" },
+            { color: "#d8e2da", border: "#5b7a61", label: "Validate (Spring Y1)" },
+            { color: "#f4dcc2", border: "#b5651d", label: "Build (Fall Y2)" },
+            { color: "#ecd8d8", border: "#9c3f3f", label: "Launch (Spring Y2)" },
+          ].map(l => (
+            <div key={l.label} className="flex items-center gap-1.5">
+              <div className="w-3 h-3 rounded-full border" style={{ backgroundColor: l.color, borderColor: l.border }}></div>
+              <span className="text-xs text-[#4A3B32]">{l.label}</span>
+            </div>
+          ))}
+          <div className="border-l border-[#eaddce] pl-4 flex items-center gap-1.5">
+            <div className="w-4 h-4 rotate-45 border-2" style={{ backgroundColor: "#D4882A", borderColor: "#0D2240" }}></div>
+            <span className="text-xs text-[#4A3B32]">Sunstone graduation &amp; venture recognition</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-12 h-px border-t-2 border-dashed opacity-50" style={{ borderColor: "#D4882A" }}></div>
+            <span className="text-xs text-[#4A3B32]">Program spine (semester sequence)</span>
+          </div>
+        </div>
       </div>
     </div>
   );

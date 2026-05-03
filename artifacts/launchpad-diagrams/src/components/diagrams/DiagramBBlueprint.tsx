@@ -1,118 +1,204 @@
 import React from "react";
 
+const TRACKS = [
+  {
+    id: "explorer",
+    num: "01",
+    label: "Explorer",
+    sub: "Freshman / New Student",
+    color: "#9b8af0",
+    startCol: 0,
+    endCol: 4,
+    entryLabel: "Fall Y1",
+    entryNote: "Begins at Discover",
+    brings: "Curiosity, no prior idea required",
+    commitment: "Full 4 semesters",
+    description: "Traditional path — starts from zero and progresses through all phases",
+  },
+  {
+    id: "joiner",
+    num: "02",
+    label: "Joiner",
+    sub: "Rolling Entry",
+    color: "#4ad7c1",
+    startCol: 1,
+    endCol: 4,
+    entryLabel: "Spring Y1 or Fall Y2",
+    entryNote: "Joins an existing team",
+    brings: "Execution energy, complementary skills",
+    commitment: "2–3 semesters",
+    description: "Matches with a team post-Discover when execution resources are needed",
+  },
+  {
+    id: "accelerator",
+    num: "03",
+    label: "Accelerator",
+    sub: "Transfer / Jr / Sr",
+    color: "#f39c12",
+    startCol: 2,
+    endCol: 4,
+    entryLabel: "Fall Y2",
+    entryNote: "Enters at Build phase",
+    brings: "Existing venture or traction",
+    commitment: "2 semesters",
+    description: "Skips early phases — brings prior startup experience directly to Build",
+  },
+  {
+    id: "contributor",
+    num: "04",
+    label: "Contributor",
+    sub: "Skills / Rolling",
+    color: "#8A99AA",
+    startCol: 0,
+    endCol: 4,
+    entryLabel: "Anytime (Rolling)",
+    entryNote: "Flexible project-based",
+    brings: "Design, dev, marketing skills",
+    commitment: "Project-based / Part-time",
+    description: "Acts as agency resource — supports multiple teams without full commitment",
+  },
+];
+
+const COLS = [
+  { label: "Fall Y1", sub: "Discover", color: "#9b8af0" },
+  { label: "Spring Y1", sub: "Validate", color: "#4ad7c1" },
+  { label: "Fall Y2", sub: "Build", color: "#f39c12" },
+  { label: "Spring Y2", sub: "Launch", color: "#e74c3c" },
+];
+
 export const DiagramBBlueprint = () => {
   return (
-    <div className="w-full h-full bg-[#0D2240] text-[#F7F5F0] font-sans relative overflow-hidden flex flex-col p-12">
-      {/* Blueprint grid background */}
+    <div className="w-full h-full bg-[#0D2240] text-[#F7F5F0] font-sans relative overflow-hidden flex flex-col p-10">
+      {/* Blueprint grid */}
       <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(247, 245, 240, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(247, 245, 240, 0.5) 1px, transparent 1px)", backgroundSize: "20px 20px" }}></div>
-      <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(247, 245, 240, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(247, 245, 240, 0.5) 1px, transparent 1px)", backgroundSize: "100px 100px" }}></div>
+      <div className="absolute inset-0 opacity-15 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(247, 245, 240, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(247, 245, 240, 0.5) 1px, transparent 1px)", backgroundSize: "100px 100px" }}></div>
 
       {/* Header */}
-      <div className="mb-8 relative z-10 border-b border-[#D4882A] pb-4 flex justify-between items-end">
+      <div className="mb-6 relative z-10 border-b border-[#D4882A] pb-4 flex justify-between items-end">
         <div>
-          <h2 className="text-5xl font-display uppercase tracking-widest text-[#D4882A]">Student Entry Points</h2>
-          <p className="text-xl uppercase tracking-[0.2em] opacity-80 mt-2 font-display">Multiple Vectors of Engagement</p>
+          <h2 className="text-4xl font-display uppercase tracking-widest text-[#D4882A]">Student Entry Points</h2>
+          <p className="text-base uppercase tracking-[0.2em] opacity-70 mt-1 font-display">Four Tracks &bull; Multiple Vectors of Engagement</p>
         </div>
-        <div className="text-right text-sm opacity-60 font-mono">
-          <p>TRACKS: 4</p>
-          <p>REV: 2.1.0</p>
+        <div className="text-right text-xs opacity-50 font-mono">
+          <p>TRACKS: 4 &bull; SEMESTERS: 4</p>
+          <p>REV: 2.1.0 &bull; Smith Center</p>
+        </div>
+      </div>
+
+      {/* Main Grid */}
+      <div className="flex-1 flex relative z-10 min-h-0">
+
+        {/* Left track labels */}
+        <div className="w-52 flex-shrink-0 flex flex-col pr-4 border-r border-[#F7F5F0] border-opacity-20">
+          {/* spacer for col header */}
+          <div className="h-14 border-b border-[#F7F5F0] border-opacity-15 mb-1"></div>
+          {TRACKS.map((t) => (
+            <div key={t.id} className="flex-1 flex flex-col justify-center py-2 border-b border-[#F7F5F0] border-opacity-10 last:border-b-0">
+              <div className="text-xs font-mono text-[#D4882A] mb-0.5">TRACK {t.num}</div>
+              <div className="font-display text-xl uppercase tracking-wide" style={{ color: t.color }}>{t.label}</div>
+              <div className="text-xs opacity-50 uppercase tracking-wide">{t.sub}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Timeline grid */}
+        <div className="flex-1 flex flex-col pl-4 min-w-0">
+
+          {/* Column headers */}
+          <div className="flex h-14 border-b border-[#F7F5F0] border-opacity-15 mb-1">
+            {COLS.map((c) => (
+              <div key={c.label} className="flex-1 text-center flex flex-col justify-center border-r border-[#F7F5F0] border-opacity-10 last:border-r-0">
+                <div className="font-display text-xs uppercase tracking-widest" style={{ color: c.color }}>{c.label}</div>
+                <div className="text-xs opacity-50 font-mono uppercase">{c.sub}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Track rows */}
+          {TRACKS.map((t) => {
+            const startPct = (t.startCol / 4) * 100;
+            const widthPct = ((t.endCol - t.startCol) / 4) * 100;
+            const isDashed = t.id === "contributor";
+            return (
+              <div key={t.id} className="flex-1 relative border-b border-[#F7F5F0] border-opacity-10 last:border-b-0 flex items-center py-2">
+                {/* Col grid lines */}
+                <div className="absolute inset-0 flex pointer-events-none">
+                  {[1, 2, 3].map(i => (
+                    <div key={i} className="absolute top-0 bottom-0 border-r border-[#F7F5F0] border-opacity-10" style={{ left: `${(i / 4) * 100}%` }}></div>
+                  ))}
+                </div>
+
+                {/* Track bar */}
+                <div className="absolute" style={{ left: `${startPct}%`, width: `${widthPct}%`, top: '50%', transform: 'translateY(-50%)' }}>
+                  {isDashed ? (
+                    <div className="relative flex items-center">
+                      <div className="w-full h-[2px]" style={{ background: `repeating-linear-gradient(to right, ${t.color} 0, ${t.color} 8px, transparent 8px, transparent 14px)` }}></div>
+                      {/* Dots across */}
+                      {[0.15, 0.38, 0.62, 0.85].map((pos, i) => (
+                        <div key={i} className="absolute w-2 h-2 rounded-full border-2" style={{ backgroundColor: '#0D2240', borderColor: t.color, left: `${pos * 100}%`, top: '50%', transform: 'translate(-50%, -50%)' }}></div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="relative flex items-center">
+                      <div className="w-full h-[2px]" style={{ backgroundColor: t.color }}></div>
+                      {/* Entry dot */}
+                      <div className="absolute left-0 w-3 h-3 rounded-full border-2" style={{ backgroundColor: '#0D2240', borderColor: t.color, top: '50%', transform: 'translate(-50%, -50%)' }}></div>
+                      {/* Exit arrowhead */}
+                      <div className="absolute right-0 w-0 h-0" style={{
+                        borderTop: '6px solid transparent',
+                        borderBottom: '6px solid transparent',
+                        borderLeft: `9px solid ${t.color}`,
+                        top: '50%',
+                        transform: 'translateY(-50%)'
+                      }}></div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Entry label (above bar) */}
+                <div className="absolute text-[10px] font-mono uppercase tracking-wider" style={{ left: `calc(${startPct}% + 4px)`, top: '18%', color: t.color }}>
+                  &#9654; {t.entryLabel}
+                </div>
+
+                {/* Detail info (below bar) */}
+                <div className="absolute text-[9px] font-mono opacity-50" style={{ left: `calc(${startPct}% + 4px)`, bottom: '10%', color: t.color }}>
+                  Brings: {t.brings} &bull; {t.commitment}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* Main Container */}
-      <div className="flex-1 flex relative z-10 pt-4">
-        
-        {/* Left labels */}
-        <div className="w-48 flex flex-col justify-between py-12 pr-4 border-r border-[#F7F5F0] border-opacity-30">
-           <div className="text-right">
-             <div className="text-sm font-mono text-[#D4882A] mb-1">TRACK 01</div>
-             <div className="font-display text-2xl uppercase tracking-wider">Explorer</div>
-             <div className="text-xs opacity-60 uppercase">Freshman / Start</div>
-           </div>
-           <div className="text-right">
-             <div className="text-sm font-mono text-[#D4882A] mb-1">TRACK 02</div>
-             <div className="font-display text-2xl uppercase tracking-wider">Joiner</div>
-             <div className="text-xs opacity-60 uppercase">Existing Team</div>
-           </div>
-           <div className="text-right">
-             <div className="text-sm font-mono text-[#D4882A] mb-1">TRACK 03</div>
-             <div className="font-display text-2xl uppercase tracking-wider">Accelerator</div>
-             <div className="text-xs opacity-60 uppercase">Transfer / Jr / Sr</div>
-           </div>
-           <div className="text-right">
-             <div className="text-sm font-mono text-[#D4882A] mb-1">TRACK 04</div>
-             <div className="font-display text-2xl uppercase tracking-wider">Contributor</div>
-             <div className="text-xs opacity-60 uppercase">Skills / Ad Hoc</div>
-           </div>
+      {/* Legend */}
+      <div className="mt-4 border border-[#D4882A] bg-[#071628] p-4 relative z-10">
+        <h4 className="font-display uppercase tracking-wider mb-3 text-[#D4882A] border-b border-[#D4882A] pb-1 text-sm">Legend &amp; Track Details</h4>
+        <div className="grid grid-cols-4 gap-3">
+          {TRACKS.map((t) => (
+            <div key={t.id} className="text-xs space-y-1">
+              <div className="flex items-center gap-1.5">
+                <div className="w-8 h-[2px]" style={{ backgroundColor: t.color }}></div>
+                <span className="font-display uppercase text-sm" style={{ color: t.color }}>{t.label}</span>
+              </div>
+              <div className="opacity-60"><span className="text-[#D4882A]">Entry:</span> {t.entryLabel}</div>
+              <div className="opacity-60"><span className="text-[#D4882A]">Note:</span> {t.entryNote}</div>
+              <div className="opacity-60"><span className="text-[#D4882A]">Brings:</span> {t.brings}</div>
+              <div className="opacity-60"><span className="text-[#D4882A]">Commitment:</span> {t.commitment}</div>
+            </div>
+          ))}
         </div>
-
-        {/* Timeline Area */}
-        <div className="flex-1 relative flex flex-col pl-4">
-          
-          {/* Top Axis */}
-          <div className="flex h-12 border-b border-[#F7F5F0] border-opacity-30 font-mono text-sm tracking-widest opacity-80 uppercase">
-             <div className="flex-1 text-center border-r border-[#F7F5F0] border-opacity-30 pt-2">Fall Y1<br/>Discover</div>
-             <div className="flex-1 text-center border-r border-[#F7F5F0] border-opacity-30 pt-2">Spring Y1<br/>Validate</div>
-             <div className="flex-1 text-center border-r border-[#F7F5F0] border-opacity-30 pt-2">Fall Y2<br/>Build</div>
-             <div className="flex-1 text-center pt-2">Spring Y2<br/>Launch</div>
+        <div className="mt-3 pt-2 border-t border-[#F7F5F0] border-opacity-10 flex items-center gap-6 text-xs opacity-60 font-mono">
+          <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-full border border-[#D4882A]"></div><span>Entry point</span></div>
+          <div className="flex items-center gap-1.5">
+            <svg width="18" height="6" viewBox="0 0 18 6"><path d="M0 3 L12 3" stroke="#D4882A" strokeWidth="2"/><path d="M10 0 L18 3 L10 6" fill="#D4882A"/></svg>
+            <span>Track progression</span>
           </div>
-
-          {/* Grid lines */}
-          <div className="absolute top-12 bottom-0 left-4 right-0 flex pointer-events-none opacity-20">
-             <div className="flex-1 border-r border-[#F7F5F0]"></div>
-             <div className="flex-1 border-r border-[#F7F5F0]"></div>
-             <div className="flex-1 border-r border-[#F7F5F0]"></div>
-             <div className="flex-1"></div>
-          </div>
-
-          {/* Tracks visualization */}
-          <div className="flex-1 flex flex-col justify-between py-12 relative">
-            
-            {/* Track 1: Explorer */}
-            <div className="h-8 relative flex items-center group">
-               <div className="w-[95%] h-[2px] bg-[#9b8af0] relative">
-                 {/* Entry */}
-                 <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#0D2240] border-2 border-[#9b8af0] rounded-full"></div>
-                 {/* Arrow */}
-                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-[#9b8af0] border-b-[6px] border-b-transparent"></div>
-               </div>
-               <div className="absolute top-full left-4 text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity text-[#9b8af0]">START: 100% Commitment</div>
-            </div>
-
-            {/* Track 2: Joiner */}
-            <div className="h-8 relative flex items-center group">
-               <div className="w-[70%] h-[2px] bg-[#4ad7c1] relative ml-[25%]">
-                 <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#0D2240] border-2 border-[#4ad7c1] rounded-full"></div>
-                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-[#4ad7c1] border-b-[6px] border-b-transparent"></div>
-                 <div className="absolute -left-6 top-1/2 -translate-y-1/2 w-[2px] h-16 bg-[#4ad7c1] border-dashed border-opacity-50"></div>
-               </div>
-               <div className="absolute top-full left-[26%] text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity text-[#4ad7c1]">START: Matches with existing team</div>
-            </div>
-
-            {/* Track 3: Accelerator */}
-            <div className="h-8 relative flex items-center group">
-               <div className="w-[45%] h-[2px] bg-[#f39c12] relative ml-[50%]">
-                 <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-[#0D2240] border-2 border-[#f39c12] rounded-full"></div>
-                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-l-[8px] border-l-[#f39c12] border-b-[6px] border-b-transparent"></div>
-               </div>
-               <div className="absolute top-full left-[51%] text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity text-[#f39c12]">START: Brings own idea/traction</div>
-            </div>
-
-            {/* Track 4: Contributor */}
-            <div className="h-8 relative flex items-center group">
-               <div className="w-[90%] h-[2px] bg-[#8A99AA] relative ml-[5%] border-dashed flex justify-around items-center">
-                 <div className="w-2 h-2 bg-[#8A99AA] rounded-full"></div>
-                 <div className="w-2 h-2 bg-[#8A99AA] rounded-full"></div>
-                 <div className="w-2 h-2 bg-[#8A99AA] rounded-full"></div>
-                 <div className="w-2 h-2 bg-[#8A99AA] rounded-full"></div>
-               </div>
-               <div className="absolute top-full left-[10%] text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity text-[#8A99AA]">Floating resource, varying commitment</div>
-            </div>
-
+          <div className="flex items-center gap-1.5">
+            <div className="w-8 h-[2px]" style={{ background: `repeating-linear-gradient(to right, #8A99AA 0, #8A99AA 6px, transparent 6px, transparent 10px)` }}></div>
+            <span>Flexible / project-based (Contributor)</span>
           </div>
         </div>
       </div>
-      
     </div>
   );
 };

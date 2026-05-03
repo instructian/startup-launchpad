@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronDown, ChevronUp, Repeat } from 'lucide-react';
+import { ChevronDown, ChevronUp, Repeat, FileText } from 'lucide-react';
 import VideoTemplate, { SCENE_DURATIONS } from './VideoTemplate';
 import { useSceneControls } from './useSceneControls';
+import Storyboard from './Storyboard';
 
 const PROGRESS_TICK_MS = 60;
 
@@ -13,9 +14,11 @@ interface ControlBarProps {
   activeIndex: number;
   activeDuration: number;
   tick: number;
+  showingScript: boolean;
   onToggleLock: () => void;
   onJumpTo: (index: number) => void;
   onToggleCollapsed: () => void;
+  onToggleScript: () => void;
 }
 
 function ProgressSegments({
@@ -76,9 +79,11 @@ function ControlBar({
   activeIndex,
   activeDuration,
   tick,
+  showingScript,
   onToggleLock,
   onJumpTo,
   onToggleCollapsed,
+  onToggleScript,
 }: ControlBarProps) {
   return (
     <div
@@ -117,6 +122,22 @@ function ControlBar({
         {activeIndex + 1}/{sceneKeys.length}
       </div>
 
+      <div className="w-px self-stretch bg-white/15" aria-hidden="true" />
+
+      <button
+        onClick={onToggleScript}
+        className={`w-14 h-14 flex items-center justify-center transition-colors rounded-lg shrink-0 ${
+          showingScript
+            ? 'text-white bg-white/15 hover:bg-white/25'
+            : 'text-white/60 hover:text-white hover:bg-white/10'
+        }`}
+        title={showingScript ? 'Close script & storyboard' : 'View script & storyboard'}
+        aria-label={showingScript ? 'Close script & storyboard' : 'View script & storyboard'}
+        aria-pressed={showingScript}
+      >
+        <FileText className="w-8 h-8" />
+      </button>
+
       <button
         onClick={onToggleCollapsed}
         className="w-14 h-14 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 transition-colors rounded-lg shrink-0"
@@ -150,6 +171,7 @@ export default function VideoWithControls() {
   const [collapsed, setCollapsed] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [tapPinned, setTapPinned] = useState(false);
+  const [showingScript, setShowingScript] = useState(false);
 
   const handlePointerEnter = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === 'mouse') setHovering(true);
@@ -172,6 +194,9 @@ export default function VideoWithControls() {
       }
       return !c;
     });
+  }, []);
+  const handleToggleScript = useCallback(() => {
+    setShowingScript((s) => !s);
   }, []);
 
   useEffect(() => {
@@ -197,6 +222,10 @@ export default function VideoWithControls() {
         loop
         onSceneChange={onSceneChange}
       />
+
+      {/* Storyboard overlay */}
+      {showingScript && <Storyboard onClose={() => setShowingScript(false)} />}
+
       <div
         ref={sensorRef}
         className="absolute bottom-0 left-0 right-0 z-50 flex flex-col justify-end"
@@ -214,9 +243,11 @@ export default function VideoWithControls() {
           activeIndex={activeIndex}
           activeDuration={activeDuration}
           tick={tick}
+          showingScript={showingScript}
           onToggleLock={toggleLock}
           onJumpTo={jumpTo}
           onToggleCollapsed={handleToggleCollapsed}
+          onToggleScript={handleToggleScript}
         />
       </div>
     </div>

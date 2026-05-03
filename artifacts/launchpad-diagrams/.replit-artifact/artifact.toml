@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/launchpad-diagrams/"
+title = "Startup Launchpad Program Diagrams"
+version = "1.0.0"
+id = "artifacts/launchpad-diagrams"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/launchpad-diagrams/" ]
+localPort = 19164
+
+[services.development]
+run = "pnpm --filter @workspace/launchpad-diagrams run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/launchpad-diagrams", "run", "build" ]
+publicDir = "artifacts/launchpad-diagrams/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19164"
+BASE_PATH = "/launchpad-diagrams/"

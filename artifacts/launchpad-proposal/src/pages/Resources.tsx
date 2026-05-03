@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { Printer, ChevronDown, ChevronUp } from "lucide-react";
+import { useState, useMemo, useCallback } from "react";
+import { Printer, ChevronDown, ChevronUp, ChevronsUpDown } from "lucide-react";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -490,8 +490,15 @@ const BUDGET_ROWS = [
 
 // ── Resource Card ─────────────────────────────────────────────────────────────
 
-function ResourceCard({ resource }: { resource: Resource }) {
-  const [expanded, setExpanded] = useState(false);
+function ResourceCard({
+  resource,
+  expanded,
+  onToggle,
+}: {
+  resource: Resource;
+  expanded: boolean;
+  onToggle: () => void;
+}) {
   const c = CLASS_COLORS[resource.classification];
 
   return (
@@ -532,7 +539,7 @@ function ResourceCard({ resource }: { resource: Resource }) {
         </div>
       </div>
       <button
-        onClick={() => setExpanded((v) => !v)}
+        onClick={onToggle}
         className="no-print w-full flex items-center justify-center gap-1 py-2 text-[11px] font-display font-semibold text-[#8A99AA] hover:text-[#0D2240] hover:bg-[#0D2240]/[0.02] transition-colors border-t border-[#0D2240]/8"
       >
         {expanded ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
@@ -547,6 +554,7 @@ function ResourceCard({ resource }: { resource: Resource }) {
 export default function Resources() {
   const [classFilter, setClassFilter] = useState<Classification | "All">("All");
   const [catFilter, setCatFilter] = useState<Category | "All">("All");
+  const [expandedNames, setExpandedNames] = useState<Set<string>>(new Set());
 
   const filtered = useMemo(() =>
     RESOURCES.filter(
@@ -556,6 +564,36 @@ export default function Resources() {
     ),
     [classFilter, catFilter]
   );
+
+  const allVisibleExpanded = filtered.length > 0 && filtered.every((r) => expandedNames.has(r.name));
+
+  const handleExpandAll = useCallback(() => {
+    if (allVisibleExpanded) {
+      setExpandedNames((prev) => {
+        const next = new Set(prev);
+        filtered.forEach((r) => next.delete(r.name));
+        return next;
+      });
+    } else {
+      setExpandedNames((prev) => {
+        const next = new Set(prev);
+        filtered.forEach((r) => next.add(r.name));
+        return next;
+      });
+    }
+  }, [allVisibleExpanded, filtered]);
+
+  const handleToggle = useCallback((name: string) => {
+    setExpandedNames((prev) => {
+      const next = new Set(prev);
+      if (next.has(name)) {
+        next.delete(name);
+      } else {
+        next.add(name);
+      }
+      return next;
+    });
+  }, []);
 
   const counts = useMemo(() => ({
     Essential: RESOURCES.filter((r) => r.classification === "Essential").length,
@@ -676,8 +714,17 @@ export default function Resources() {
               {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
-          <div className="ml-auto text-xs text-[#8A99AA] font-display">
-            {filtered.length} of {RESOURCES.length} resources
+          <div className="ml-auto flex items-center gap-3">
+            <span className="text-xs text-[#8A99AA] font-display">
+              {filtered.length} of {RESOURCES.length} resources
+            </span>
+            <button
+              onClick={handleExpandAll}
+              className="no-print flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-display font-semibold transition-colors border border-[#D4882A]/40 text-[#D4882A] hover:bg-[#D4882A] hover:text-white"
+            >
+              <ChevronsUpDown size={12} />
+              {allVisibleExpanded ? "Collapse All" : "Expand All"}
+            </button>
           </div>
         </div>
       </div>
@@ -708,7 +755,14 @@ export default function Resources() {
                   </span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                  {grouped[cat].map((r, i) => <ResourceCard key={i} resource={r} />)}
+                  {grouped[cat].map((r, i) => (
+                    <ResourceCard
+                      key={i}
+                      resource={r}
+                      expanded={expandedNames.has(r.name)}
+                      onToggle={() => handleToggle(r.name)}
+                    />
+                  ))}
                 </div>
               </section>
             ))}

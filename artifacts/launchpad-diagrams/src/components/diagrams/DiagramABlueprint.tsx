@@ -1,155 +1,220 @@
 import React from "react";
-import { motion } from "framer-motion";
+
+const SEMESTERS = [
+  {
+    id: "fall-y1",
+    label: "Fall Y1",
+    theme: "Discover",
+    color: "#9b8af0",
+    period: "Aug – Dec, Year 1",
+    activities: ["Design Thinking workshops", "Guest speaker series", "Team formation", "Ideathon prep"],
+    event: "Ideathon",
+    pitch: "90-sec pitch",
+    eventDate: "Late Nov, Year 1",
+    judging: "Problem clarity, urgency, team potential",
+    launchpadModules: ["Problem Framing", "Team Role Mapping"],
+    deliverable: "Problem brief, user segment, solution thesis",
+  },
+  {
+    id: "spring-y1",
+    label: "Spring Y1",
+    theme: "Validate",
+    color: "#4ad7c1",
+    period: "Jan – May, Year 1",
+    activities: ["Customer discovery", "Market research", "MVP prototyping", "Mentor sessions"],
+    event: "Innovation Festival",
+    pitch: "3-min pitch",
+    eventDate: "Late Apr, Year 1",
+    judging: "Customer evidence, prototype learning",
+    launchpadModules: ["Customer Discovery", "Business Model Assumptions"],
+    deliverable: "Customer interviews, early prototype, evidence record",
+  },
+  {
+    id: "fall-y2",
+    label: "Fall Y2",
+    theme: "Build",
+    color: "#f39c12",
+    period: "Aug – Dec, Year 2",
+    activities: ["Product development", "Cross-major teams", "Deep mentorship", "Beta testing"],
+    event: "Adv. Ideathon",
+    pitch: "5-min pitch",
+    eventDate: "Late Nov, Year 2",
+    judging: "MVP progress, traction target, feasibility",
+    launchpadModules: ["Prototype Planning", "Pitch Builder"],
+    deliverable: "MVP/pilot, business model, traction target",
+  },
+  {
+    id: "spring-y2",
+    label: "Spring Y2",
+    theme: "Launch",
+    color: "#e74c3c",
+    period: "Jan – May, Year 2",
+    activities: ["Go-to-market strategy", "Investment prep", "Pitch coaching", "Investor showcase"],
+    event: "Innovation Festival",
+    pitch: "7–10 min pitch",
+    eventDate: "Late Apr, Year 2",
+    judging: "Desirability, feasibility, viability, traction",
+    launchpadModules: ["Pitch Builder", "Business Model Assumptions"],
+    deliverable: "Traction, business plan, go-to-market, financials",
+  },
+];
+
+const LOOP_STEPS = ["Provocation", "Teams", "Evidence", "Build", "Pitch", "Feedback", "Next Sprint"];
 
 export const DiagramABlueprint = () => {
   return (
-    <div className="w-full h-full bg-[#0D2240] text-[#F7F5F0] font-sans relative overflow-hidden flex flex-col p-12">
-      {/* Blueprint grid background */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(247, 245, 240, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(247, 245, 240, 0.5) 1px, transparent 1px)", backgroundSize: "20px 20px" }}></div>
-      <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(247, 245, 240, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(247, 245, 240, 0.5) 1px, transparent 1px)", backgroundSize: "100px 100px" }}></div>
+    <div className="w-full h-full bg-[#0D2240] text-[#F7F5F0] font-sans relative overflow-hidden flex flex-col p-10">
+      {/* Blueprint grid */}
+      <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(247,245,240,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(247,245,240,0.5) 1px, transparent 1px)", backgroundSize: "20px 20px" }}></div>
+      <div className="absolute inset-0 opacity-15 pointer-events-none" style={{ backgroundImage: "linear-gradient(rgba(247,245,240,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(247,245,240,0.5) 1px, transparent 1px)", backgroundSize: "100px 100px" }}></div>
 
       {/* Header */}
-      <div className="mb-12 relative z-10 border-b border-[#D4882A] pb-4 flex justify-between items-end">
+      <div className="mb-5 relative z-10 border-b border-[#D4882A] pb-3 flex justify-between items-end flex-shrink-0">
         <div>
-          <h2 className="text-5xl font-display uppercase tracking-widest text-[#D4882A]">The Two-Year Journey</h2>
-          <p className="text-xl uppercase tracking-[0.2em] opacity-80 mt-2 font-display">System Architecture & Progression Flow</p>
+          <h2 className="text-4xl font-display uppercase tracking-widest text-[#D4882A]">The Two-Year Journey</h2>
+          <p className="text-sm uppercase tracking-[0.2em] opacity-70 mt-1 font-display">System Architecture &amp; Progression Flow &bull; Smith Center for Entrepreneurship</p>
         </div>
-        <div className="text-right text-sm opacity-60 font-mono">
-          <p>SCALE: 1:4 SEMESTERS</p>
-          <p>REV: 1.0.0</p>
+        <div className="text-right text-xs opacity-50 font-mono">
+          <p>SCALE: 1:4 SEMESTERS &bull; 2 YEARS</p>
+          <p>REV: 1.0.0 &bull; AUG Y1 → MAY Y2</p>
         </div>
       </div>
 
-      {/* Main Diagram Area */}
-      <div className="flex-1 flex flex-col relative z-10 justify-center">
-        {/* Timeline backbone */}
-        <div className="absolute left-0 right-0 top-1/2 h-[2px] bg-[#D4882A] -translate-y-1/2"></div>
-        
-        {/* Years container */}
-        <div className="flex w-full h-full relative">
-          
-          {/* Year 1 */}
-          <div className="flex-1 border-r border-[#D4882A] border-dashed relative flex flex-col pt-8">
-            <div className="absolute -top-6 left-0 right-0 text-center text-2xl font-display tracking-widest text-[#D4882A] bg-[#0D2240] px-4 mx-auto w-max">YEAR ONE</div>
-            
-            <div className="flex flex-1 h-full">
-              {/* Fall Y1 */}
-              <div className="flex-1 relative flex flex-col items-center justify-between py-12">
-                <div className="w-[1px] h-full absolute left-1/2 top-0 bg-[#F7F5F0] opacity-20"></div>
-                
-                <div className="text-center w-full px-6 mb-auto border border-[#F7F5F0] border-opacity-30 bg-[#0D2240] py-4 shadow-lg backdrop-blur-sm">
-                  <h3 className="text-3xl font-display uppercase tracking-wider mb-2 text-[#9b8af0]">Fall Y1 <span className="opacity-50">Discover</span></h3>
-                  <ul className="text-sm space-y-2 opacity-80 text-left list-disc list-inside px-4">
-                    <li>Design Thinking workshops</li>
-                    <li>Guest speakers</li>
-                    <li>Ideathon prep</li>
-                  </ul>
-                </div>
+      {/* Year labels */}
+      <div className="flex relative z-10 flex-shrink-0 mb-1">
+        <div className="flex-1 text-center text-sm font-display uppercase tracking-widest text-[#D4882A] border-r border-dashed border-[#D4882A] border-opacity-40 pb-1">Year One &bull; Aug Y1 – May Y1</div>
+        <div className="flex-1 text-center text-sm font-display uppercase tracking-widest text-[#D4882A] pb-1">Year Two &bull; Aug Y2 – May Y2</div>
+      </div>
 
-                <div className="w-4 h-4 rounded-full border-2 border-[#D4882A] bg-[#0D2240] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"></div>
-                
-                <div className="mt-auto border-t border-[#D4882A] pt-4 w-full text-center">
-                  <div className="text-xs uppercase tracking-widest text-[#D4882A] mb-1">Culminating Event</div>
-                  <div className="font-display text-2xl uppercase tracking-wider">Ideathon</div>
-                  <div className="text-sm font-mono opacity-60">90-SEC PITCH</div>
-                </div>
-              </div>
+      {/* Four semester columns */}
+      <div className="flex flex-1 gap-1 relative z-10 min-h-0">
+        {SEMESTERS.map((s, i) => (
+          <div key={s.id} className="flex-1 flex flex-col border border-[#F7F5F0] border-opacity-15 relative">
+            {/* Semester header */}
+            <div className="px-3 py-2 border-b border-opacity-20" style={{ borderColor: s.color }}>
+              <div className="font-display text-lg uppercase tracking-wider" style={{ color: s.color }}>{s.label} <span className="opacity-50 text-base">{s.theme}</span></div>
+              <div className="text-[10px] font-mono opacity-50 uppercase">{s.period}</div>
+            </div>
 
-              {/* Spring Y1 */}
-              <div className="flex-1 relative flex flex-col items-center justify-between py-12">
-                <div className="w-[1px] h-full absolute left-1/2 top-0 bg-[#F7F5F0] opacity-20"></div>
-                
-                <div className="text-center w-full px-6 mb-auto border border-[#F7F5F0] border-opacity-30 bg-[#0D2240] py-4 shadow-lg backdrop-blur-sm">
-                  <h3 className="text-3xl font-display uppercase tracking-wider mb-2 text-[#4ad7c1]">Spring Y1 <span className="opacity-50">Validate</span></h3>
-                  <ul className="text-sm space-y-2 opacity-80 text-left list-disc list-inside px-4">
-                    <li>Customer discovery</li>
-                    <li>Market research</li>
-                    <li>MVPs</li>
-                  </ul>
-                </div>
+            {/* Activities */}
+            <div className="px-3 py-2 border-b border-[#F7F5F0] border-opacity-10 flex-1">
+              <div className="text-[9px] font-mono uppercase tracking-widest text-[#D4882A] mb-1">Activities</div>
+              <ul className="space-y-0.5">
+                {s.activities.map(a => (
+                  <li key={a} className="text-xs flex items-start gap-1.5 opacity-80">
+                    <span className="opacity-40 flex-shrink-0">&#9632;</span>{a}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-                <div className="w-4 h-4 rounded-full border-2 border-[#D4882A] bg-[#0D2240] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"></div>
-                
-                <div className="mt-auto border-t border-[#D4882A] pt-4 w-full text-center">
-                  <div className="text-xs uppercase tracking-widest text-[#D4882A] mb-1">Culminating Event</div>
-                  <div className="font-display text-2xl uppercase tracking-wider">Innovation Fest</div>
-                  <div className="text-sm font-mono opacity-60">3-MIN PITCH</div>
-                </div>
+            {/* Core Loop annotation */}
+            <div className="px-3 py-2 border-b border-[#F7F5F0] border-opacity-10">
+              <div className="text-[9px] font-mono uppercase tracking-widest text-[#D4882A] mb-1">Core Loop &#8635;</div>
+              <div className="flex flex-wrap gap-0.5">
+                {LOOP_STEPS.map((step, li) => (
+                  <React.Fragment key={step}>
+                    <span className="text-[8px] bg-[#F7F5F0] bg-opacity-10 px-1 py-0.5 font-mono uppercase">{step}</span>
+                    {li < LOOP_STEPS.length - 1 && <span className="text-[8px] opacity-30">&#8594;</span>}
+                  </React.Fragment>
+                ))}
               </div>
             </div>
+
+            {/* Launchpad Tool layer */}
+            <div className="px-3 py-2 border-b border-[#D4882A] border-opacity-20">
+              <div className="text-[9px] font-mono uppercase tracking-widest text-[#D4882A] mb-1">Launchpad Tool</div>
+              <div className="flex flex-col gap-0.5">
+                {s.launchpadModules.map(m => (
+                  <div key={m} className="text-[9px] flex items-center gap-1 opacity-70">
+                    <span className="w-1.5 h-1.5 bg-[#D4882A] opacity-60 flex-shrink-0"></span>{m}
+                  </div>
+                ))}
+              </div>
+              <div className="text-[9px] mt-1 opacity-50 font-mono">Deliverable: {s.deliverable}</div>
+            </div>
+
+            {/* Milestone / event */}
+            <div className="px-3 py-2 relative">
+              <div className="text-[9px] font-mono uppercase tracking-widest text-[#D4882A] mb-1">Culminating Event</div>
+              <div className="font-display text-base uppercase tracking-wide">{s.event}</div>
+              <div className="text-xs font-mono opacity-70">{s.pitch}</div>
+              <div className="text-[9px] font-mono opacity-40 mt-0.5">{s.eventDate}</div>
+              <div className="text-[8px] opacity-40 mt-0.5 italic">Judged on: {s.judging}</div>
+              {/* Milestone dot on timeline */}
+              <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full border-2 border-[#D4882A] bg-[#0D2240]"></div>
+            </div>
+
+            {/* Arrow to next */}
+            {i < SEMESTERS.length - 1 && (
+              <div className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 z-20 text-[#D4882A] text-xs">&#9658;</div>
+            )}
           </div>
+        ))}
 
-          {/* Year 2 */}
-          <div className="flex-1 relative flex flex-col pt-8">
-            <div className="absolute -top-6 left-0 right-0 text-center text-2xl font-display tracking-widest text-[#D4882A] bg-[#0D2240] px-4 mx-auto w-max">YEAR TWO</div>
-            
-            <div className="flex flex-1 h-full">
-              {/* Fall Y2 */}
-              <div className="flex-1 relative flex flex-col items-center justify-between py-12">
-                <div className="w-[1px] h-full absolute left-1/2 top-0 bg-[#F7F5F0] opacity-20"></div>
-                
-                <div className="text-center w-full px-6 mb-auto border border-[#F7F5F0] border-opacity-30 bg-[#0D2240] py-4 shadow-lg backdrop-blur-sm">
-                  <h3 className="text-3xl font-display uppercase tracking-wider mb-2 text-[#f39c12]">Fall Y2 <span className="opacity-50">Build</span></h3>
-                  <ul className="text-sm space-y-2 opacity-80 text-left list-disc list-inside px-4">
-                    <li>Product development</li>
-                    <li>Team formation</li>
-                    <li>Deep mentorship</li>
-                  </ul>
-                </div>
-
-                <div className="w-4 h-4 rounded-full border-2 border-[#D4882A] bg-[#0D2240] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"></div>
-                
-                <div className="mt-auto border-t border-[#D4882A] pt-4 w-full text-center">
-                  <div className="text-xs uppercase tracking-widest text-[#D4882A] mb-1">Culminating Event</div>
-                  <div className="font-display text-2xl uppercase tracking-wider">Adv. Ideathon</div>
-                  <div className="text-sm font-mono opacity-60">5-MIN PITCH</div>
-                </div>
-              </div>
-
-              {/* Spring Y2 */}
-              <div className="flex-1 relative flex flex-col items-center justify-between py-12">
-                <div className="w-[1px] h-full absolute left-1/2 top-0 bg-[#F7F5F0] opacity-20"></div>
-                
-                <div className="text-center w-full px-6 mb-auto border border-[#F7F5F0] border-opacity-30 bg-[#0D2240] py-4 shadow-lg backdrop-blur-sm">
-                  <h3 className="text-3xl font-display uppercase tracking-wider mb-2 text-[#e74c3c]">Spring Y2 <span className="opacity-50">Launch</span></h3>
-                  <ul className="text-sm space-y-2 opacity-80 text-left list-disc list-inside px-4">
-                    <li>Go-to-market</li>
-                    <li>Investment prep</li>
-                    <li>Pitch coaching</li>
-                  </ul>
-                </div>
-
-                <div className="w-4 h-4 rounded-full border-2 border-[#D4882A] bg-[#0D2240] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"></div>
-                
-                <div className="mt-auto border-t border-[#D4882A] pt-4 w-full text-center">
-                  <div className="text-xs uppercase tracking-widest text-[#D4882A] mb-1">Culminating Event</div>
-                  <div className="font-display text-2xl uppercase tracking-wider">Innovation Fest</div>
-                  <div className="text-sm font-mono opacity-60">7-10 MIN PITCH</div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Graduation */}
-            <div className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-16 h-16 rotate-45 border-4 border-[#D4882A] bg-[#0D2240] z-30 flex items-center justify-center">
+        {/* Sunstone */}
+        <div className="flex items-center justify-center flex-shrink-0 ml-2">
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-16 h-16 rotate-45 border-4 border-[#D4882A] bg-[#071628] z-30 flex items-center justify-center shadow-xl">
               <div className="-rotate-45 text-center leading-tight">
-                <div className="font-display uppercase text-xs text-[#D4882A]">Sunstone</div>
+                <div className="font-display uppercase text-xs text-[#D4882A] leading-snug">Sun<br/>stone</div>
               </div>
             </div>
+            <div className="text-[9px] font-mono uppercase opacity-40 text-center">Advanced<br/>Venture<br/>Competition</div>
           </div>
-
         </div>
       </div>
 
       {/* Legend */}
-      <div className="absolute bottom-12 right-12 border border-[#D4882A] bg-[#0D2240] p-4 text-sm z-40 max-w-xs shadow-2xl backdrop-blur-md">
-        <h4 className="font-display uppercase tracking-wider mb-2 text-[#D4882A] border-b border-[#D4882A] pb-1">Legend</h4>
-        <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-          <div className="flex items-center gap-2"><div className="w-3 h-3 bg-[#9b8af0] border border-[#F7F5F0]"></div><span className="opacity-80">Discover</span></div>
-          <div className="flex items-center gap-2"><div className="w-3 h-3 bg-[#4ad7c1] border border-[#F7F5F0]"></div><span className="opacity-80">Validate</span></div>
-          <div className="flex items-center gap-2"><div className="w-3 h-3 bg-[#f39c12] border border-[#F7F5F0]"></div><span className="opacity-80">Build</span></div>
-          <div className="flex items-center gap-2"><div className="w-3 h-3 bg-[#e74c3c] border border-[#F7F5F0]"></div><span className="opacity-80">Launch</span></div>
-          <div className="flex items-center gap-2 mt-2 col-span-2"><div className="w-3 h-3 border border-[#D4882A] rounded-full"></div><span className="opacity-80">Milestone / Pitch</span></div>
-          <div className="flex items-center gap-2 col-span-2"><div className="w-3 h-3 border border-[#D4882A] rotate-45"></div><span className="opacity-80">Graduation (Sunstone)</span></div>
+      <div className="mt-3 border border-[#D4882A] border-opacity-50 bg-[#071628] p-3 relative z-10 flex-shrink-0">
+        <div className="flex items-start gap-6 flex-wrap">
+          <div>
+            <h4 className="font-display uppercase tracking-wider text-[#D4882A] text-xs border-b border-[#D4882A] border-opacity-40 pb-1 mb-2">Semester Colors</h4>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+              {SEMESTERS.map(s => (
+                <div key={s.id} className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 border" style={{ borderColor: s.color }}></div>
+                  <span className="text-xs opacity-70">{s.label} ({s.theme})</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h4 className="font-display uppercase tracking-wider text-[#D4882A] text-xs border-b border-[#D4882A] border-opacity-40 pb-1 mb-2">Pitch Events &amp; Calendar</h4>
+            <div className="space-y-1">
+              {SEMESTERS.map(s => (
+                <div key={s.id} className="flex items-center gap-2 text-xs opacity-70">
+                  <div className="w-2 h-2 rounded-full border border-[#D4882A]"></div>
+                  <span>{s.event}</span>
+                  <span className="opacity-50">({s.pitch})</span>
+                  <span className="opacity-40 font-mono text-[10px]">— {s.eventDate}</span>
+                </div>
+              ))}
+              <div className="flex items-center gap-2 text-xs opacity-70 mt-1">
+                <div className="w-4 h-4 rotate-45 border-2 border-[#D4882A]"></div>
+                <span>Sunstone — Spring Y2 (Advanced venture competition, investor pitch)</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4 className="font-display uppercase tracking-wider text-[#D4882A] text-xs border-b border-[#D4882A] border-opacity-40 pb-1 mb-2">Core Loop (repeats each semester)</h4>
+            <div className="flex items-center gap-1 flex-wrap">
+              {LOOP_STEPS.map((step, i) => (
+                <React.Fragment key={step}>
+                  <span className="text-[9px] font-mono uppercase opacity-70 bg-white bg-opacity-5 px-1.5 py-0.5">{i + 1}. {step}</span>
+                  {i < LOOP_STEPS.length - 1 && <span className="text-[#D4882A] opacity-40 text-xs">&#8594;</span>}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h4 className="font-display uppercase tracking-wider text-[#D4882A] text-xs border-b border-[#D4882A] border-opacity-40 pb-1 mb-2">Launchpad Tool Modules</h4>
+            <div className="space-y-0.5 text-[9px] opacity-60 font-mono">
+              {["Problem Framing", "Customer Discovery", "Prototype Planning", "Business Model Assumptions", "Team Role Mapping", "Pitch Builder"].map(m => (
+                <div key={m} className="flex items-center gap-1"><span className="w-1.5 h-1.5 bg-[#D4882A] opacity-50"></span>{m}</div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

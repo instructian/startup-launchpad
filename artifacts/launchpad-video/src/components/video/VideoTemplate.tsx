@@ -47,10 +47,13 @@ export default function VideoTemplate({
   durations = SCENE_DURATIONS,
   loop = true,
   onSceneChange,
+  activeCaption,
 }: {
   durations?: Record<string, number>;
   loop?: boolean;
   onSceneChange?: (sceneKey: string) => void;
+  /** When provided (non-null), overrides the scene-boundary caption with an audio-synced one */
+  activeCaption?: string | null;
 } = {}) {
   const { currentSceneKey } = useVideoPlayer({ durations, loop });
 
@@ -60,7 +63,16 @@ export default function VideoTemplate({
 
   const baseSceneKey = currentSceneKey.replace(/_r[12]$/, '') as keyof typeof SCENE_DURATIONS;
   const SceneComponent = SCENE_COMPONENTS[baseSceneKey];
-  const caption = captions[baseSceneKey] ?? '';
+
+  // When activeCaption is provided (even null), use it as the audio-driven caption.
+  // null  → between narration lines, show nothing
+  // ''    → empty caption
+  // When activeCaption is undefined (no narration wired), fall back to the scene-boundary map.
+  const isNarrationMode = activeCaption !== undefined;
+  const caption = isNarrationMode ? (activeCaption ?? '') : (captions[baseSceneKey] ?? '');
+  // In narration mode, key captions by their text so AnimatePresence transitions
+  // when the caption changes (audio-timestamp-driven), not just at scene boundaries.
+  const captionKey = isNarrationMode ? (activeCaption ?? '__empty__') : baseSceneKey;
 
   return (
     <div
@@ -103,21 +115,23 @@ export default function VideoTemplate({
           {SceneComponent && <SceneComponent key={currentSceneKey} />}
         </AnimatePresence>
 
-        {/* Caption layer */}
+        {/* Caption layer — hidden when caption is empty (between narration lines) */}
         <div className="absolute bottom-[4vh] inset-x-0 flex justify-center z-50 pointer-events-none">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={baseSceneKey}
-              initial={{ opacity: 0, y: 15, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -10, scale: 0.95 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-[#071628]/90 backdrop-blur-xl px-10 py-4 rounded-full border border-white/10 shadow-2xl shadow-black/50"
-            >
-              <p className="text-[#F7F5F0] font-body text-[1.8vw] font-medium tracking-wide">
-                {caption}
-              </p>
-            </motion.div>
+            {caption ? (
+              <motion.div
+                key={captionKey}
+                initial={{ opacity: 0, y: 15, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-[#071628]/90 backdrop-blur-xl px-10 py-4 rounded-full border border-white/10 shadow-2xl shadow-black/50"
+              >
+                <p className="text-[#F7F5F0] font-body text-[1.8vw] font-medium tracking-wide">
+                  {caption}
+                </p>
+              </motion.div>
+            ) : null}
           </AnimatePresence>
         </div>
       </div>

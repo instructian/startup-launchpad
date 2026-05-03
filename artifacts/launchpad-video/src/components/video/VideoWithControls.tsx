@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronDown, ChevronUp, Repeat, FileText, Download, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ChevronDown, ChevronUp, Repeat, FileText, Download, Loader2, CheckCircle2, AlertCircle, Volume2, VolumeX } from 'lucide-react';
 import VideoTemplate, { SCENE_DURATIONS } from './VideoTemplate';
 import { useSceneControls } from './useSceneControls';
 import Storyboard from './Storyboard';
 import { useExportMP4, type ExportState } from '@/hooks/useExportMP4';
+import { useNarration, buildSceneStartTimes } from '@/hooks/useNarration';
 
 const PROGRESS_TICK_MS = 60;
 
@@ -11,6 +12,7 @@ interface ControlBarProps {
   visible: boolean;
   collapsed: boolean;
   locked: boolean;
+  muted: boolean;
   sceneKeys: string[];
   activeIndex: number;
   activeDuration: number;
@@ -20,6 +22,7 @@ interface ControlBarProps {
   exportProgress: number;
   exportError: string | null;
   onToggleLock: () => void;
+  onToggleMute: () => void;
   onJumpTo: (index: number) => void;
   onToggleCollapsed: () => void;
   onToggleScript: () => void;
@@ -143,6 +146,7 @@ function ControlBar({
   visible,
   collapsed,
   locked,
+  muted,
   sceneKeys,
   activeIndex,
   activeDuration,
@@ -152,6 +156,7 @@ function ControlBar({
   exportProgress,
   exportError,
   onToggleLock,
+  onToggleMute,
   onJumpTo,
   onToggleCollapsed,
   onToggleScript,
@@ -178,6 +183,23 @@ function ControlBar({
         aria-pressed={locked}
       >
         <Repeat className="w-8 h-8" />
+      </button>
+
+      <div className="w-px self-stretch bg-white/15" aria-hidden="true" />
+
+      {/* Mute / Unmute narration */}
+      <button
+        onClick={onToggleMute}
+        className={`w-14 h-14 flex items-center justify-center transition-colors rounded-lg shrink-0 ${
+          muted
+            ? 'text-white/60 hover:text-white hover:bg-white/10'
+            : 'text-white bg-white/15 hover:bg-white/25'
+        }`}
+        title={muted ? 'Unmute narration' : 'Mute narration'}
+        aria-label={muted ? 'Unmute narration' : 'Mute narration'}
+        aria-pressed={!muted}
+      >
+        {muted ? <VolumeX className="w-8 h-8" /> : <Volume2 className="w-8 h-8" />}
       </button>
 
       <div className="w-px self-stretch bg-white/15" aria-hidden="true" />
@@ -248,6 +270,31 @@ export default function VideoWithControls() {
     toggleLock,
   } = useSceneControls(SCENE_DURATIONS);
 
+  // Narration — starts muted, respecting browser autoplay policies.
+  // activeCaption is driven by the audio clock, shown regardless of mute state.
+  const { muted, toggleMute, activeCaption, seekTo } = useNarration(SCENE_DURATIONS);
+
+  // Pre-computed scene start positions (seconds) in the audio timeline.
+  // Used to keep the audio in sync when the user jumps to a different scene.
+  const sceneStartTimes = buildSceneStartTimes(SCENE_DURATIONS);
+
+  // Wrapped jumpTo: advances the video AND seeks the audio to the matching position
+  const jumpToScene = useCallback(
+    (index: number) => {
+      jumpTo(index);
+      seekTo(sceneStartTimes[index] ?? 0);
+    },
+    [jumpTo, seekTo, sceneStartTimes],
+  );
+
+  // When the video loops back to scene 0, also reset audio to 0
+  const handleSceneChange = useCallback(
+    (sceneKey: string) => {
+      onSceneChange(sceneKey);
+    },
+    [onSceneChange],
+  );
+
   // When true, VideoTemplate uses full SCENE_DURATIONS with loop=false for recording
   const [isExporting, setIsExporting] = useState(false);
 
@@ -260,8 +307,8 @@ export default function VideoWithControls() {
     if (locked) toggleLock();
     setIsExporting(true);
     // Reset to scene 1 (remounts VideoTemplate, which triggers window.startRecording)
-    jumpTo(0);
-  }, [locked, toggleLock, jumpTo]);
+    jumpToScene(0);
+  }, [locked, toggleLock, jumpToScene]);
 
   const { exportState, progress: exportProgress, errorMessage: exportError, startExport } =
     useExportMP4(handleStartExport, handleExportComplete);
@@ -311,7 +358,24 @@ export default function VideoWithControls() {
 
   const barVisible = !collapsed || hovering || tapPinned;
 
-  if (!isIframed) return <VideoTemplate />;
+  // Non-iframe view: render the video with narration active and a minimal
+  // mute/unmute overlay in the corner. No full control bar in this view.
+  if (!isIframed) {
+    return (
+      <div className="relative w-full h-screen">
+        <VideoTemplate activeCaption={activeCaption} />
+        <button
+          onClick={toggleMute}
+          className="absolute top-4 right-4 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-black/60 transition-colors backdrop-blur-sm"
+          title={muted ? 'Unmute narration' : 'Mute narration'}
+          aria-label={muted ? 'Unmute narration' : 'Mute narration'}
+          aria-pressed={!muted}
+        >
+          {muted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-screen">
@@ -319,7 +383,8 @@ export default function VideoWithControls() {
         key={mountKey}
         durations={isExporting ? SCENE_DURATIONS : durations}
         loop={!isExporting}
-        onSceneChange={onSceneChange}
+        onSceneChange={handleSceneChange}
+        activeCaption={activeCaption}
       />
 
       {/* Storyboard overlay */}
@@ -338,6 +403,7 @@ export default function VideoWithControls() {
           visible={barVisible}
           collapsed={collapsed}
           locked={locked}
+          muted={muted}
           sceneKeys={sceneKeys}
           activeIndex={activeIndex}
           activeDuration={activeDuration}
@@ -347,7 +413,8 @@ export default function VideoWithControls() {
           exportProgress={exportProgress}
           exportError={exportError}
           onToggleLock={toggleLock}
-          onJumpTo={jumpTo}
+          onToggleMute={toggleMute}
+          onJumpTo={jumpToScene}
           onToggleCollapsed={handleToggleCollapsed}
           onToggleScript={handleToggleScript}
           onExport={startExport}

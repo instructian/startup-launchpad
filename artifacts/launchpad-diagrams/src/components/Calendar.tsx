@@ -653,14 +653,6 @@ function SemesterCardView({ yearMode }: { yearMode: YearMode }) {
         <SemesterCardDetail card={card} yearMode={yearMode} />
       </div>
 
-      {/* Print: all 4 cards in current order */}
-      <div className="print-only space-y-8">
-        {orderedCards.map((c) => (
-          <div key={c.id}>
-            <SemesterCardDetail card={c} yearMode={yearMode} />
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
@@ -770,6 +762,12 @@ function ChallengesView() {
 
 // ── Print Summary ─────────────────────────────────────────────────────────────
 
+const PRINT_EXACT: React.CSSProperties = {
+  WebkitPrintColorAdjust: "exact",
+  printColorAdjust: "exact",
+  colorAdjust: "exact" as React.CSSProperties["colorAdjust"],
+};
+
 function PrintSummary({ yearMode }: { yearMode: YearMode }) {
   const academicOrder: Semester[] = ["FY1", "SY1", "FY2", "SY2"];
   const calendarOrder: Semester[] = ["SY1", "FY1", "SY2", "FY2"];
@@ -777,99 +775,228 @@ function PrintSummary({ yearMode }: { yearMode: YearMode }) {
   const orderedCards = orderedIds.map((id) => SEMESTER_CARDS.find((c) => c.id === id)!);
 
   const academicYearLabel: Record<Semester, string> = {
-    FY1: "Academic Year 1  (Aug – May)",
-    SY1: "Academic Year 1  (Aug – May)",
-    FY2: "Academic Year 2  (Aug – May)",
-    SY2: "Academic Year 2  (Aug – May)",
+    FY1: "Academic Year 1",
+    SY1: "Academic Year 1",
+    FY2: "Academic Year 2",
+    SY2: "Academic Year 2",
   };
 
+  const tdBase: React.CSSProperties = { padding: "5px 10px", fontSize: "10.5px", fontFamily: "'Barlow Condensed', sans-serif", borderBottom: "1px solid #E8E4DC" };
+  const thBase: React.CSSProperties = { ...PRINT_EXACT, padding: "6px 10px", fontSize: "10px", fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, textAlign: "left", letterSpacing: "0.05em", textTransform: "uppercase", color: "white" };
+
   return (
-    <div className="print-only p-8 bg-white">
-      {/* Header */}
-      <div className="border-b-2 border-[#0D2240] pb-4 mb-6">
-        <div className="flex items-end justify-between">
-          <div>
-            <h1 className="font-display font-bold text-[#0D2240] text-2xl tracking-wide uppercase">Startup Launchpad</h1>
-            <div className="text-sm text-[#8A99AA] font-display uppercase tracking-widest mt-0.5">Smith Center for Entrepreneurship · Two-Year Calendar</div>
+    <div
+      className="calendar-print-area"
+      style={{ ...PRINT_EXACT, fontFamily: "'Barlow Condensed', sans-serif", background: "white", padding: "0", margin: "0" }}
+    >
+      {/* ── Header band ── */}
+      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", borderBottom: "2.5px solid #0D2240", paddingBottom: "8px", marginBottom: "12px" }}>
+        <div>
+          <div style={{ fontSize: "20px", fontWeight: 800, color: "#0D2240", textTransform: "uppercase", letterSpacing: "0.06em", lineHeight: 1.1 }}>
+            Startup Launchpad
           </div>
-          <div className="text-right">
-            <div className="text-[11px] font-display text-[#8A99AA]">View: {yearMode === "academic" ? "Academic Year (Aug – May)" : "Calendar Year (Jan – Dec)"}</div>
-            <div className="text-[11px] font-display text-[#8A99AA]">4 Semesters · 4 Major Events · 4 External Challenges</div>
+          <div style={{ fontSize: "10px", color: "#8A99AA", textTransform: "uppercase", letterSpacing: "0.12em", marginTop: "2px" }}>
+            Smith Center for Entrepreneurship · Two-Year Program Calendar
+          </div>
+        </div>
+        <div style={{ textAlign: "right" }}>
+          <div style={{ fontSize: "10px", color: "#0D2240", fontWeight: 700 }}>
+            {yearMode === "academic" ? "Academic Year view (Aug – May)" : "Calendar Year view (Jan – Dec)"}
+          </div>
+          <div style={{ fontSize: "9.5px", color: "#8A99AA", marginTop: "1px" }}>
+            4 Semesters · 5 Major Events · 4 External Challenges
           </div>
         </div>
       </div>
 
-      {/* Semester summary table */}
-      <table className="w-full text-[11px] border-collapse mb-6">
-        <thead>
-          <tr className="bg-[#0D2240] text-white">
-            <th className="font-display font-bold text-left px-3 py-2">Semester</th>
-            <th className="font-display font-bold text-left px-3 py-2">Theme</th>
-            <th className="font-display font-bold text-left px-3 py-2">Months</th>
-            <th className="font-display font-bold text-left px-3 py-2">{yearMode === "calendar" ? "Calendar Year" : "Academic Year"}</th>
-            <th className="font-display font-bold text-left px-3 py-2">Milestone Event</th>
-            <th className="font-display font-bold text-left px-3 py-2">Active Challenges</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orderedCards.map((c, i) => (
-            <tr key={c.id} className={i % 2 === 0 ? "bg-[#F7F5F0]" : "bg-white"}>
-              <td className="px-3 py-2 font-display font-bold text-[#0D2240]">{c.label}</td>
-              <td className="px-3 py-2 font-display font-semibold" style={{ color: c.trackColor }}>{c.theme}</td>
-              <td className="px-3 py-2 text-[#0D2240]/70">{c.months.replace(" (+ Optional Summer Sprint)", "")}</td>
-              <td className="px-3 py-2 text-[#0D2240]/70">
-                {yearMode === "calendar" ? c.calendarYear : academicYearLabel[c.id]}
-              </td>
-              <td className="px-3 py-2 text-[#0D2240]/80">{c.milestone}</td>
-              <td className="px-3 py-2 text-[#0D2240]/70">{c.challenges.join(", ") || "—"}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {/* ── Three-column layout ── */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px", alignItems: "start" }}>
 
-      {/* Event ladder */}
-      <h2 className="font-display font-bold text-[#0D2240] text-base mb-3 uppercase tracking-wider">Event Ladder</h2>
-      <table className="w-full text-[11px] border-collapse mb-6">
-        <thead>
-          <tr className="bg-[#D4882A] text-white">
-            <th className="font-display font-bold text-left px-3 py-2">Event</th>
-            <th className="font-display font-bold text-left px-3 py-2">Timing</th>
-            <th className="font-display font-bold text-left px-3 py-2">Format</th>
-            <th className="font-display font-bold text-left px-3 py-2">Judging Focus</th>
-          </tr>
-        </thead>
-        <tbody>
-          {MILESTONES.map((m, i) => (
-            <tr key={i} className={i % 2 === 0 ? "bg-[#F7F5F0]" : "bg-white"}>
-              <td className="px-3 py-2 font-display font-semibold text-[#0D2240]">{m.icon} {m.name}</td>
-              <td className="px-3 py-2 text-[#0D2240]/70">{m.week}</td>
-              <td className="px-3 py-2 text-[#0D2240]/80">{m.format}</td>
-              <td className="px-3 py-2 text-[#0D2240]/70">{m.judging}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        {/* ── Column 1: Semester Overview ── */}
+        <div>
+          <div style={{ fontSize: "9px", fontWeight: 700, color: "#0D2240", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "5px", paddingBottom: "3px", borderBottom: "2px solid #0D2240" }}>
+            Semester Overview
+          </div>
+          <table style={{ width: "100%", borderCollapse: "collapse", ...PRINT_EXACT }}>
+            <thead>
+              <tr style={{ background: "#0D2240", ...PRINT_EXACT }}>
+                <th style={{ ...thBase }}>Semester</th>
+                <th style={{ ...thBase }}>Theme</th>
+                <th style={{ ...thBase }}>{yearMode === "calendar" ? "Cal. Year" : "Acad. Year"}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orderedCards.map((c, i) => (
+                <tr key={c.id} style={{ background: i % 2 === 0 ? "#F7F5F0" : "white", ...PRINT_EXACT }}>
+                  <td style={{ ...tdBase, fontWeight: 700, color: "#0D2240" }}>{c.label}</td>
+                  <td style={{ ...tdBase, fontWeight: 700, color: c.trackColor }}>{c.theme}</td>
+                  <td style={{ ...tdBase, color: "#555" }}>
+                    {yearMode === "calendar" ? c.calendarYear.split(" · ")[0] : academicYearLabel[c.id]}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-      {/* Design challenges */}
-      <h2 className="font-display font-bold text-[#0D2240] text-base mb-3 uppercase tracking-wider">External Design Challenges</h2>
-      <table className="w-full text-[11px] border-collapse">
-        <thead>
-          <tr className="bg-[#7C3AED] text-white">
-            <th className="font-display font-bold text-left px-3 py-2">Challenge</th>
-            <th className="font-display font-bold text-left px-3 py-2">Window</th>
-            <th className="font-display font-bold text-left px-3 py-2">Alignment</th>
-          </tr>
-        </thead>
-        <tbody>
+          <div style={{ marginTop: "10px", fontSize: "9px", fontWeight: 700, color: "#0D2240", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "5px", paddingBottom: "3px", borderBottom: "2px solid #0D2240" }}>
+            Milestone Map
+          </div>
+          <table style={{ width: "100%", borderCollapse: "collapse", ...PRINT_EXACT }}>
+            <thead>
+              <tr style={{ background: "#0D2240", ...PRINT_EXACT }}>
+                <th style={{ ...thBase }}>Semester</th>
+                <th style={{ ...thBase }}>Months</th>
+                <th style={{ ...thBase }}>Key Milestone</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orderedCards.map((c, i) => (
+                <tr key={c.id} style={{ background: i % 2 === 0 ? "#F7F5F0" : "white", ...PRINT_EXACT }}>
+                  <td style={{ ...tdBase, fontWeight: 700, color: "#0D2240" }}>{c.label}</td>
+                  <td style={{ ...tdBase, color: "#555" }}>{c.months.replace(" (+ Optional Summer Sprint)", "")}</td>
+                  <td style={{ ...tdBase, color: "#0D2240", fontSize: "9.5px" }}>{c.milestone}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <div style={{ marginTop: "10px", fontSize: "9px", fontWeight: 700, color: "#0D2240", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "5px", paddingBottom: "3px", borderBottom: "2px solid #0D2240" }}>
+            Active Challenges by Semester
+          </div>
+          <table style={{ width: "100%", borderCollapse: "collapse", ...PRINT_EXACT }}>
+            <thead>
+              <tr style={{ background: "#0D2240", ...PRINT_EXACT }}>
+                <th style={{ ...thBase }}>Semester</th>
+                <th style={{ ...thBase }}>External Challenges</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orderedCards.map((c, i) => (
+                <tr key={c.id} style={{ background: i % 2 === 0 ? "#F7F5F0" : "white", ...PRINT_EXACT }}>
+                  <td style={{ ...tdBase, fontWeight: 700, color: "#0D2240", whiteSpace: "nowrap" }}>{c.label}</td>
+                  <td style={{ ...tdBase, color: "#555" }}>{c.challenges.join("; ") || "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* ── Column 2: Event Ladder ── */}
+        <div>
+          <div style={{ fontSize: "9px", fontWeight: 700, color: "#D4882A", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "5px", paddingBottom: "3px", borderBottom: "2px solid #D4882A" }}>
+            Event Ladder — 5 Major Milestones
+          </div>
+          <table style={{ width: "100%", borderCollapse: "collapse", ...PRINT_EXACT }}>
+            <thead>
+              <tr style={{ background: "#D4882A", ...PRINT_EXACT }}>
+                <th style={{ ...thBase }}>Event</th>
+                <th style={{ ...thBase }}>Timing</th>
+                <th style={{ ...thBase }}>Format</th>
+                <th style={{ ...thBase }}>Judging Focus</th>
+              </tr>
+            </thead>
+            <tbody>
+              {MILESTONES.map((m, i) => (
+                <tr key={i} style={{ background: i % 2 === 0 ? "#FFF8EC" : "white", ...PRINT_EXACT }}>
+                  <td style={{ ...tdBase, fontWeight: 700, color: "#0D2240" }}>
+                    <span style={{ marginRight: "4px" }}>{m.icon}</span>{m.name}
+                  </td>
+                  <td style={{ ...tdBase, color: "#555", fontSize: "9.5px" }}>{m.week}</td>
+                  <td style={{ ...tdBase, color: "#0D2240", fontSize: "9.5px" }}>{m.format}</td>
+                  <td style={{ ...tdBase, color: "#555", fontSize: "9.5px" }}>{m.judging}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Deliverables quick-ref */}
+          <div style={{ marginTop: "10px", fontSize: "9px", fontWeight: 700, color: "#D4882A", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "5px", paddingBottom: "3px", borderBottom: "2px solid #D4882A" }}>
+            Key Deliverables by Semester
+          </div>
+          <table style={{ width: "100%", borderCollapse: "collapse", ...PRINT_EXACT }}>
+            <thead>
+              <tr style={{ background: "#D4882A", ...PRINT_EXACT }}>
+                <th style={{ ...thBase }}>Semester</th>
+                <th style={{ ...thBase }}>Capstone Deliverable</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orderedCards.map((c, i) => (
+                <tr key={c.id} style={{ background: i % 2 === 0 ? "#FFF8EC" : "white", ...PRINT_EXACT }}>
+                  <td style={{ ...tdBase, fontWeight: 700, color: "#0D2240", whiteSpace: "nowrap" }}>{c.label}</td>
+                  <td style={{ ...tdBase, color: "#555", fontSize: "9.5px" }}>{c.deliverables[c.deliverables.length - 1]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* ── Column 3: External Design Challenges ── */}
+        <div>
+          <div style={{ fontSize: "9px", fontWeight: 700, color: "#7C3AED", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "5px", paddingBottom: "3px", borderBottom: "2px solid #7C3AED" }}>
+            External Design Challenges — 4 Programs
+          </div>
+          <table style={{ width: "100%", borderCollapse: "collapse", ...PRINT_EXACT }}>
+            <thead>
+              <tr style={{ background: "#7C3AED", ...PRINT_EXACT }}>
+                <th style={{ ...thBase }}>Challenge</th>
+                <th style={{ ...thBase }}>Organizer</th>
+                <th style={{ ...thBase }}>Submission Window</th>
+                <th style={{ ...thBase }}>Launchpad Semesters</th>
+              </tr>
+            </thead>
+            <tbody>
+              {CHALLENGES.map((c, i) => (
+                <tr key={i} style={{ background: i % 2 === 0 ? "#F5F0FF" : "white", ...PRINT_EXACT }}>
+                  <td style={{ ...tdBase, fontWeight: 700, color: "#0D2240" }}>
+                    <span style={{ marginRight: "4px" }}>{c.icon}</span>{c.name}
+                  </td>
+                  <td style={{ ...tdBase, color: "#555", fontSize: "9.5px" }}>{c.organizer}</td>
+                  <td style={{ ...tdBase, color: "#555", fontSize: "9.5px" }}>{c.window}</td>
+                  <td style={{ ...tdBase }}>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "2px" }}>
+                      {c.launchpadSemester.map((s) => (
+                        <span
+                          key={s}
+                          style={{ ...PRINT_EXACT, background: MILESTONE_SEM_COLORS[s], color: "white", fontSize: "8.5px", fontWeight: 700, padding: "1px 5px", borderRadius: "3px", fontFamily: "'Barlow Condensed', sans-serif" }}
+                        >
+                          {SEM_LABELS[s]}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Challenge alignment summary */}
+          <div style={{ marginTop: "10px", fontSize: "9px", fontWeight: 700, color: "#7C3AED", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "5px", paddingBottom: "3px", borderBottom: "2px solid #7C3AED" }}>
+            Challenge Alignment Notes
+          </div>
           {CHALLENGES.map((c, i) => (
-            <tr key={i} className={i % 2 === 0 ? "bg-[#F7F5F0]" : "bg-white"}>
-              <td className="px-3 py-2 font-display font-semibold text-[#0D2240]">{c.icon} {c.name}</td>
-              <td className="px-3 py-2 text-[#0D2240]/70">{c.window}</td>
-              <td className="px-3 py-2 text-[#0D2240]/80">{c.alignment}</td>
-            </tr>
+            <div
+              key={i}
+              style={{ ...PRINT_EXACT, background: i % 2 === 0 ? "#F5F0FF" : "white", borderBottom: "1px solid #E8E4DC", padding: "5px 8px" }}
+            >
+              <div style={{ fontWeight: 700, fontSize: "10px", color: "#0D2240" }}>
+                {c.icon} {c.name}
+              </div>
+              <div style={{ fontSize: "9.5px", color: "#555", marginTop: "2px", lineHeight: 1.35 }}>{c.alignment}</div>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
+
+      {/* ── Footer ── */}
+      <div style={{ marginTop: "12px", paddingTop: "6px", borderTop: "1px solid #0D2240", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ fontSize: "8.5px", color: "#8A99AA", letterSpacing: "0.05em" }}>
+          Startup Launchpad · Smith Center for Entrepreneurship · Two-Year Program Summary
+        </div>
+        <div style={{ fontSize: "8.5px", color: "#8A99AA" }}>
+          Explorer Track (Yr 1) → Builder Track (FY2) → Accelerator &amp; Sunstone Track (SY2)
+        </div>
+      </div>
     </div>
   );
 }
@@ -890,19 +1017,12 @@ export function Calendar() {
   return (
     <>
       <style>{`
-        @media print {
-          .no-print { display: none !important; }
-          .print-only { display: block !important; }
-          .calendar-print-container {
-            background: white !important;
-            padding: 0 !important;
-          }
-          body { background: white !important; }
-          -webkit-print-color-adjust: exact;
-          print-color-adjust: exact;
-        }
         @media screen {
-          .print-only { display: none !important; }
+          .calendar-print-area { display: none !important; }
+        }
+        @media print {
+          * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+          .no-print { display: none !important; visibility: hidden !important; }
         }
       `}</style>
 
@@ -957,7 +1077,7 @@ export function Calendar() {
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-display font-semibold border border-[#0D2240]/20 text-[#0D2240]/60 hover:text-[#0D2240] hover:border-[#0D2240]/40 transition-all"
             >
               <Printer className="w-3 h-3" />
-              Print / PDF
+              Download as PDF
             </button>
           </div>
         </div>

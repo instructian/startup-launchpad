@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { BookOpen, Calendar, HelpCircle, Network, FileText, ClipboardList, DollarSign } from "lucide-react";
+import { BookOpen, Calendar, HelpCircle, Network, FileText, ClipboardList, DollarSign, GraduationCap, Handshake } from "lucide-react";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
@@ -12,6 +12,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
     { href: "/faq", label: "Program FAQ", icon: HelpCircle },
     { href: "/rubric", label: "Judge Rubric", icon: ClipboardList },
     { href: "/budget", label: "Budget Model", icon: DollarSign },
+    { href: "/students", label: "For Students", icon: GraduationCap },
+    { href: "/sponsors", label: "For Sponsors", icon: Handshake },
   ];
 
   return (

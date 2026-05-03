@@ -11,6 +11,8 @@ import ResourcesPage from "@/pages/resources";
 import CalendarPage from "@/pages/calendar";
 import RubricPage from "@/pages/rubric";
 import BudgetPage from "@/pages/budget";
+import StudentsPage from "@/pages/students";
+import SponsorsPage from "@/pages/sponsors";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -26,6 +28,8 @@ function Router() {
         <Route path="/calendar" component={CalendarPage} />
         <Route path="/rubric" component={RubricPage} />
         <Route path="/budget" component={BudgetPage} />
+        <Route path="/students" component={StudentsPage} />
+        <Route path="/sponsors" component={SponsorsPage} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronDown, ChevronUp, Repeat, FileText } from 'lucide-react';
+import { ChevronDown, ChevronUp, Repeat, FileText, Download, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import VideoTemplate, { SCENE_DURATIONS } from './VideoTemplate';
 import { useSceneControls } from './useSceneControls';
 import Storyboard from './Storyboard';
+import { useExportMP4, type ExportState } from '@/hooks/useExportMP4';
 
 const PROGRESS_TICK_MS = 60;
 
@@ -15,10 +16,14 @@ interface ControlBarProps {
   activeDuration: number;
   tick: number;
   showingScript: boolean;
+  exportState: ExportState;
+  exportProgress: number;
+  exportError: string | null;
   onToggleLock: () => void;
   onJumpTo: (index: number) => void;
   onToggleCollapsed: () => void;
   onToggleScript: () => void;
+  onExport: () => void;
 }
 
 function ProgressSegments({
@@ -71,6 +76,69 @@ function ProgressSegments({
   );
 }
 
+function ExportButton({
+  exportState,
+  exportProgress,
+  exportError,
+  onExport,
+}: {
+  exportState: ExportState;
+  exportProgress: number;
+  exportError: string | null;
+  onExport: () => void;
+}) {
+  const isIdle = exportState === 'idle';
+  const isWaiting = exportState === 'waiting';
+  const isRecording = exportState === 'recording';
+  const isProcessing = exportState === 'processing';
+  const isDone = exportState === 'done';
+  const isError = exportState === 'error';
+  const isActive = isWaiting || isRecording || isProcessing;
+
+  let label: string;
+  let title: string;
+  if (isWaiting) { label = 'Select tab to share…'; title = label; }
+  else if (isRecording) { label = `Recording… ${Math.round(exportProgress)}%`; title = label; }
+  else if (isProcessing) { label = 'Saving MP4…'; title = label; }
+  else if (isDone) { label = 'Downloaded!'; title = label; }
+  else if (isError) { label = exportError ?? 'Export failed'; title = label; }
+  else { label = 'Export MP4'; title = 'Export MP4 — requires Chrome 105+ or Edge'; }
+
+  return (
+    <button
+      onClick={isIdle ? onExport : undefined}
+      disabled={isActive || isDone}
+      title={title}
+      aria-label={label}
+      className={[
+        'flex items-center gap-2 px-4 h-14 rounded-lg transition-all shrink-0 text-sm font-medium',
+        isRecording ? 'bg-red-500/80 text-white' : '',
+        isProcessing ? 'bg-blue-500/80 text-white' : '',
+        isDone ? 'bg-green-500/80 text-white' : '',
+        isError ? 'bg-red-700/80 text-white' : '',
+        isWaiting ? 'text-white/70 bg-white/10' : '',
+        isIdle ? 'text-white/70 hover:text-white hover:bg-white/10' : '',
+      ].join(' ')}
+    >
+      {isWaiting && <Loader2 className="w-5 h-5 animate-spin shrink-0" />}
+      {isRecording && (
+        <span className="relative flex w-3 h-3 shrink-0">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-white" />
+        </span>
+      )}
+      {isProcessing && <Loader2 className="w-5 h-5 animate-spin shrink-0" />}
+      {isDone && <CheckCircle2 className="w-5 h-5 shrink-0" />}
+      {isError && <AlertCircle className="w-5 h-5 shrink-0" />}
+      {isIdle && <Download className="w-5 h-5 shrink-0" />}
+      <span className="whitespace-nowrap">{label}</span>
+      {isIdle && (
+        <span className="sr-only"> (requires Chrome 105+ or Edge)</span>
+      )}
+    </button>
+  );
+}
+
 function ControlBar({
   visible,
   collapsed,
@@ -80,10 +148,14 @@ function ControlBar({
   activeDuration,
   tick,
   showingScript,
+  exportState,
+  exportProgress,
+  exportError,
   onToggleLock,
   onJumpTo,
   onToggleCollapsed,
   onToggleScript,
+  onExport,
 }: ControlBarProps) {
   return (
     <div
@@ -121,6 +193,15 @@ function ControlBar({
       <div className="text-xl text-white/60 font-mono tabular-nums shrink-0">
         {activeIndex + 1}/{sceneKeys.length}
       </div>
+
+      <div className="w-px self-stretch bg-white/15" aria-hidden="true" />
+
+      <ExportButton
+        exportState={exportState}
+        exportProgress={exportProgress}
+        exportError={exportError}
+        onExport={onExport}
+      />
 
       <div className="w-px self-stretch bg-white/15" aria-hidden="true" />
 
@@ -166,6 +247,24 @@ export default function VideoWithControls() {
     jumpTo,
     toggleLock,
   } = useSceneControls(SCENE_DURATIONS);
+
+  // When true, VideoTemplate uses full SCENE_DURATIONS with loop=false for recording
+  const [isExporting, setIsExporting] = useState(false);
+
+  const handleExportComplete = useCallback(() => {
+    setIsExporting(false);
+  }, []);
+
+  const handleStartExport = useCallback(() => {
+    // If scene is locked, unlock it so the full video plays
+    if (locked) toggleLock();
+    setIsExporting(true);
+    // Reset to scene 1 (remounts VideoTemplate, which triggers window.startRecording)
+    jumpTo(0);
+  }, [locked, toggleLock, jumpTo]);
+
+  const { exportState, progress: exportProgress, errorMessage: exportError, startExport } =
+    useExportMP4(handleStartExport, handleExportComplete);
 
   const sensorRef = useRef<HTMLDivElement | null>(null);
   const [collapsed, setCollapsed] = useState(false);
@@ -218,8 +317,8 @@ export default function VideoWithControls() {
     <div className="relative w-full h-screen">
       <VideoTemplate
         key={mountKey}
-        durations={durations}
-        loop
+        durations={isExporting ? SCENE_DURATIONS : durations}
+        loop={!isExporting}
         onSceneChange={onSceneChange}
       />
 
@@ -244,10 +343,14 @@ export default function VideoWithControls() {
           activeDuration={activeDuration}
           tick={tick}
           showingScript={showingScript}
+          exportState={exportState}
+          exportProgress={exportProgress}
+          exportError={exportError}
           onToggleLock={toggleLock}
           onJumpTo={jumpTo}
           onToggleCollapsed={handleToggleCollapsed}
           onToggleScript={handleToggleScript}
+          onExport={startExport}
         />
       </div>
     </div>

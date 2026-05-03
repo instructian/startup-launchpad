@@ -40,7 +40,7 @@ const captions: Record<string, string> = {
   s5_prototype: "Then they build. Fast. Cheap. Real.",
   s6_pitch: "Pitch Night — student teams present to investors and industry mentors.",
   s7_sunstone: "The best teams earn a shot at Sunstone — Smith Center's flagship accelerator.",
-  s8_cta: "Applications open. Smith Center for Entrepreneurship. startuplaunchpad.smith.edu",
+  s8_cta: "Applications open. Smith Center for Entrepreneurship. launchpad.ixdia.org",
 };
 
 export default function VideoTemplate({

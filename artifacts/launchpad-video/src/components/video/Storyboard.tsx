@@ -76,7 +76,7 @@ const SCRIPT = [
     title: 'Call to Action',
     timestamp: '0:53 – 1:00',
     duration: '7s',
-    voiceover: 'Applications open. Smith Center for Entrepreneurship. startuplaunchpad.smith.edu',
+    voiceover: 'Applications open. Smith Center for Entrepreneurship. launchpad.ixdia.org',
     onScreen: 'Bold CTA text reveals line-by-line; program wordmark fades in; gold underline animates.',
     pacing: 'Deliberate, resolving — URL is the last thing on screen.',
     music: 'Gentle fade out; ends on a held piano note.',

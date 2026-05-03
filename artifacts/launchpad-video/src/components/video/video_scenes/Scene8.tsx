@@ -58,7 +58,7 @@ export function Scene8() {
         animate={phase >= 3 ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 1, delay: 0.5 }}
       >
-        startuplaunchpad.smith.edu
+        launchpad.ixdia.org
       </motion.div>
     </motion.div>
   );

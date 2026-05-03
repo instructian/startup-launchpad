@@ -568,7 +568,7 @@ export default function FAQ() {
                 Director is the appropriate contact.
               </p>
               <div className="mt-4 text-[12px] text-[#8A99AA] font-display tracking-wide uppercase">
-                Smith Center for Entrepreneurship · startuplaunchpad.smith.edu
+                Smith Center for Entrepreneurship · launchpad.ixdia.org
               </div>
             </div>
           )}

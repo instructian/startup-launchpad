@@ -1,6 +1,7 @@
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import Proposal from "@/pages/Proposal";
 import FAQ from "@/pages/FAQ";
+import Resources from "@/pages/Resources";
 
 function Router() {
   return (
@@ -8,6 +9,7 @@ function Router() {
       <Route path="/" component={Proposal} />
       <Route path="/proposal" component={Proposal} />
       <Route path="/faq" component={FAQ} />
+      <Route path="/resources" component={Resources} />
     </Switch>
   );
 }

@@ -82,12 +82,20 @@ export default function Proposal() {
               <div className="text-[10px] text-[#8A99AA] tracking-widest uppercase mt-0.5">Smith Center for Entrepreneurship · Program Proposal</div>
             </div>
           </div>
-          <Link
-            href="/faq"
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 border border-white/20 hover:border-white/40 rounded text-sm font-display font-semibold text-white/80 hover:text-white transition-colors"
-          >
-            FAQ
-          </Link>
+          <div className="hidden sm:flex items-center gap-2">
+            <Link
+              href="/resources"
+              className="flex items-center gap-1.5 px-3 py-1.5 border border-white/20 hover:border-white/40 rounded text-sm font-display font-semibold text-white/80 hover:text-white transition-colors"
+            >
+              Resources
+            </Link>
+            <Link
+              href="/faq"
+              className="flex items-center gap-1.5 px-3 py-1.5 border border-white/20 hover:border-white/40 rounded text-sm font-display font-semibold text-white/80 hover:text-white transition-colors"
+            >
+              FAQ
+            </Link>
+          </div>
           <button
             onClick={() => window.print()}
             className="flex items-center gap-1.5 px-3 py-1.5 bg-[#D4882A] hover:bg-[#c07820] rounded text-sm font-display font-semibold transition-colors"
@@ -682,7 +690,7 @@ export default function Proposal() {
                 as soon as we have staff, a budget line, and your endorsement.
               </p>
               <div className="mt-4 text-[13px] text-[#8A99AA] font-display tracking-wide uppercase">
-                Smith Center for Entrepreneurship · startuplaunchpad.smith.edu
+                Smith Center for Entrepreneurship · launchpad.ixdia.org
               </div>
             </div>
           </section>

@@ -124,16 +124,24 @@ function SlideEditor() {
     };
   }, [currentIndex, navigate]);
 
+  const displayIndex = currentIndex === -1 ? 0 : currentIndex;
+
   return (
-    <div className="select-none">
+    <div className="select-none relative">
       {slides.map((slide, index) => (
         <div
           key={slide.id}
-          style={{ display: index === currentIndex ? "block" : "none" }}
+          style={{ display: index === displayIndex ? "block" : "none" }}
         >
           <slide.Component />
         </div>
       ))}
+      <div
+        className="slide-counter"
+        aria-label={`Slide ${displayIndex + 1} of ${slides.length}`}
+      >
+        {displayIndex + 1} / {slides.length}
+      </div>
     </div>
   );
 }

@@ -235,7 +235,7 @@ const SEMESTER_CARDS: SemesterCard[] = [
     label: "Fall Year 1",
     theme: "Discover",
     months: "August – December",
-    calendarYear: "Calendar Year 1 (Aug–Dec)",
+    calendarYear: "Calendar Year 1 · Aug – Dec",
     track: "Explorer Track",
     trackColor: "#2563EB",
     activities: [
@@ -270,7 +270,7 @@ const SEMESTER_CARDS: SemesterCard[] = [
     label: "Spring Year 1",
     theme: "Validate",
     months: "January – May",
-    calendarYear: "Calendar Year 2 (Jan–May)",
+    calendarYear: "Calendar Year 1 · Jan – May",
     track: "Explorer & Builder Track",
     trackColor: "#059669",
     activities: [
@@ -304,7 +304,7 @@ const SEMESTER_CARDS: SemesterCard[] = [
     label: "Fall Year 2",
     theme: "Build",
     months: "August – December (+ Optional Summer Sprint)",
-    calendarYear: "Calendar Year 2 (Aug–Dec)",
+    calendarYear: "Calendar Year 2 · Aug – Dec",
     track: "Accelerator Track",
     trackColor: "#D4882A",
     activities: [
@@ -338,7 +338,7 @@ const SEMESTER_CARDS: SemesterCard[] = [
     label: "Spring Year 2",
     theme: "Launch",
     months: "January – May",
-    calendarYear: "Calendar Year 3 (Jan–May)",
+    calendarYear: "Calendar Year 2 · Jan – May",
     track: "Accelerator & Sunstone Track",
     trackColor: "#7C3AED",
     activities: [
@@ -410,21 +410,22 @@ function GanttRow({ lane, semBlocks, orderedSems }: { lane: Lane; semBlocks: Tim
 
 function GanttView({ yearMode }: { yearMode: YearMode }) {
   const lanes: Lane[] = ["students", "program", "events", "challenges"];
+  // Academic: chronological student journey — Fall Y1 → Spring Y1 → Fall Y2 → Spring Y2
   const academicSems: Semester[] = ["FY1", "SY1", "FY2", "SY2"];
-  const calendarSems: Semester[] = ["FY1", "SY1", "FY2", "SY2"];
+  // Calendar: January-first — shows Spring then Fall within each calendar year
+  const calendarSems: Semester[] = ["SY1", "FY1", "SY2", "FY2"];
   const orderedSems = yearMode === "academic" ? academicSems : calendarSems;
 
   // Year groupings for header band
   const yearGroups =
     yearMode === "academic"
       ? [
-          { label: "Academic Year 1", sems: ["FY1", "SY1"] as Semester[] },
-          { label: "Academic Year 2", sems: ["FY2", "SY2"] as Semester[] },
+          { label: "Academic Year 1  ·  Aug – May", sems: ["FY1", "SY1"] as Semester[] },
+          { label: "Academic Year 2  ·  Aug – May", sems: ["FY2", "SY2"] as Semester[] },
         ]
       : [
-          { label: "Cal. Year 1", sems: ["FY1"] as Semester[] },
-          { label: "Cal. Year 2", sems: ["SY1", "FY2"] as Semester[] },
-          { label: "Cal. Year 3", sems: ["SY2"] as Semester[] },
+          { label: "Calendar Year 1  ·  Jan – Dec", sems: ["SY1", "FY1"] as Semester[] },
+          { label: "Calendar Year 2  ·  Jan – Dec", sems: ["SY2", "FY2"] as Semester[] },
         ];
 
   return (
@@ -432,7 +433,7 @@ function GanttView({ yearMode }: { yearMode: YearMode }) {
       {/* Year group band */}
       <div className="flex items-start gap-0 mb-1">
         <div className="w-28 flex-shrink-0" />
-        {yearGroups.map((grp) => (
+        {yearGroups.map((grp, gi) => (
           <div
             key={grp.label}
             className="border-l border-[#0D2240]/20 pl-2 py-1"
@@ -441,16 +442,7 @@ function GanttView({ yearMode }: { yearMode: YearMode }) {
             <div
               className="text-[10px] font-display font-bold uppercase tracking-widest"
               style={{
-                color:
-                  yearMode === "academic"
-                    ? grp.sems.includes("FY1")
-                      ? "#2563EB"
-                      : "#D4882A"
-                    : grp.label === "Cal. Year 1"
-                    ? "#2563EB"
-                    : grp.label === "Cal. Year 2"
-                    ? "#059669"
-                    : "#7C3AED",
+                color: gi === 0 ? "#2563EB" : "#D4882A",
               }}
             >
               {grp.label}
@@ -499,8 +491,8 @@ function GanttView({ yearMode }: { yearMode: YearMode }) {
           <span className="font-bold">Wk 10–11</span> = Ideathon windows
         </div>
         {yearMode === "calendar" && (
-          <div className="ml-auto text-[10px] text-[#8A99AA] font-display italic">
-            Calendar Year view: CY1 = Aug–Dec · CY2 = Jan–Dec · CY3 = Jan–May
+          <div className="ml-auto text-[10px] text-[#7C3AED] font-display font-semibold italic">
+            Jan–Dec view: Spring (Jan–May) shown before Fall (Aug–Dec) within each calendar year
           </div>
         )}
       </div>
@@ -609,14 +601,35 @@ function SemesterCardDetail({ card, yearMode }: { card: SemesterCard; yearMode: 
 }
 
 function SemesterCardView({ yearMode }: { yearMode: YearMode }) {
+  const academicOrder: Semester[] = ["FY1", "SY1", "FY2", "SY2"];
+  const calendarOrder: Semester[] = ["SY1", "FY1", "SY2", "FY2"];
+  const orderedIds = yearMode === "academic" ? academicOrder : calendarOrder;
+  const orderedCards = orderedIds.map((id) => SEMESTER_CARDS.find((c) => c.id === id)!);
+
   const [active, setActive] = useState<Semester>("FY1");
   const card = SEMESTER_CARDS.find((c) => c.id === active)!;
 
+  // Calendar year group labels for the tab bar
+  const calYearGroup: Record<Semester, string> = {
+    SY1: "CY1: Jan–May",
+    FY1: "CY1: Aug–Dec",
+    SY2: "CY2: Jan–May",
+    FY2: "CY2: Aug–Dec",
+  };
+
   return (
     <div>
+      {/* Calendar Year explanation banner */}
+      {yearMode === "calendar" && (
+        <div className="mb-4 no-print bg-[#7C3AED]/8 border border-[#7C3AED]/20 rounded-lg px-4 py-2.5 flex items-center gap-2 text-[12px] text-[#7C3AED] font-display font-semibold">
+          <span>📅</span>
+          <span>Calendar Year view — semesters shown Jan→Dec: Spring (Jan–May) before Fall (Aug–Dec) within each year</span>
+        </div>
+      )}
+
       {/* Tab bar */}
       <div className="flex bg-white rounded-xl border border-[#0D2240]/10 overflow-hidden mb-6 no-print">
-        {SEMESTER_CARDS.map((c) => (
+        {orderedCards.map((c) => (
           <button
             key={c.id}
             onClick={() => setActive(c.id)}
@@ -629,7 +642,7 @@ function SemesterCardView({ yearMode }: { yearMode: YearMode }) {
               className="font-display font-semibold text-[10px] mt-0.5 uppercase tracking-wider"
               style={{ color: active === c.id ? "#D4882A" : c.trackColor }}
             >
-              {c.theme}
+              {yearMode === "calendar" ? calYearGroup[c.id] : c.theme}
             </div>
           </button>
         ))}
@@ -640,9 +653,9 @@ function SemesterCardView({ yearMode }: { yearMode: YearMode }) {
         <SemesterCardDetail card={card} yearMode={yearMode} />
       </div>
 
-      {/* Print: all 4 cards */}
+      {/* Print: all 4 cards in current order */}
       <div className="print-only space-y-8">
-        {SEMESTER_CARDS.map((c) => (
+        {orderedCards.map((c) => (
           <div key={c.id}>
             <SemesterCardDetail card={c} yearMode={yearMode} />
           </div>
@@ -758,6 +771,18 @@ function ChallengesView() {
 // ── Print Summary ─────────────────────────────────────────────────────────────
 
 function PrintSummary({ yearMode }: { yearMode: YearMode }) {
+  const academicOrder: Semester[] = ["FY1", "SY1", "FY2", "SY2"];
+  const calendarOrder: Semester[] = ["SY1", "FY1", "SY2", "FY2"];
+  const orderedIds = yearMode === "academic" ? academicOrder : calendarOrder;
+  const orderedCards = orderedIds.map((id) => SEMESTER_CARDS.find((c) => c.id === id)!);
+
+  const academicYearLabel: Record<Semester, string> = {
+    FY1: "Academic Year 1  (Aug – May)",
+    SY1: "Academic Year 1  (Aug – May)",
+    FY2: "Academic Year 2  (Aug – May)",
+    SY2: "Academic Year 2  (Aug – May)",
+  };
+
   return (
     <div className="print-only p-8 bg-white">
       {/* Header */}
@@ -768,7 +793,7 @@ function PrintSummary({ yearMode }: { yearMode: YearMode }) {
             <div className="text-sm text-[#8A99AA] font-display uppercase tracking-widest mt-0.5">Smith Center for Entrepreneurship · Two-Year Calendar</div>
           </div>
           <div className="text-right">
-            <div className="text-[11px] font-display text-[#8A99AA]">View: {yearMode === "academic" ? "Academic Year" : "Calendar Year"}</div>
+            <div className="text-[11px] font-display text-[#8A99AA]">View: {yearMode === "academic" ? "Academic Year (Aug – May)" : "Calendar Year (Jan – Dec)"}</div>
             <div className="text-[11px] font-display text-[#8A99AA]">4 Semesters · 4 Major Events · 4 External Challenges</div>
           </div>
         </div>
@@ -787,13 +812,13 @@ function PrintSummary({ yearMode }: { yearMode: YearMode }) {
           </tr>
         </thead>
         <tbody>
-          {SEMESTER_CARDS.map((c, i) => (
+          {orderedCards.map((c, i) => (
             <tr key={c.id} className={i % 2 === 0 ? "bg-[#F7F5F0]" : "bg-white"}>
               <td className="px-3 py-2 font-display font-bold text-[#0D2240]">{c.label}</td>
               <td className="px-3 py-2 font-display font-semibold" style={{ color: c.trackColor }}>{c.theme}</td>
               <td className="px-3 py-2 text-[#0D2240]/70">{c.months.replace(" (+ Optional Summer Sprint)", "")}</td>
               <td className="px-3 py-2 text-[#0D2240]/70">
-                {yearMode === "calendar" ? c.calendarYear : (c.id === "FY1" || c.id === "SY1" ? "Academic Year 1" : "Academic Year 2")}
+                {yearMode === "calendar" ? c.calendarYear : academicYearLabel[c.id]}
               </td>
               <td className="px-3 py-2 text-[#0D2240]/80">{c.milestone}</td>
               <td className="px-3 py-2 text-[#0D2240]/70">{c.challenges.join(", ") || "—"}</td>

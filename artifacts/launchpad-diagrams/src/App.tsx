@@ -5,8 +5,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Printer } from "lucide-react";
+import { FileImage, FileText } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 // Import diagram components
 import { DiagramABlueprint } from "./components/diagrams/DiagramABlueprint";
@@ -19,9 +21,26 @@ import { Calendar } from "./components/Calendar";
 
 const queryClient = new QueryClient();
 
+function getFileName(tab: "A" | "B" | "C", style: "blueprint" | "infographic" | "narrative") {
+  const tabName = tab === "A" ? "journey" : tab === "B" ? "entry-points" : "calendar";
+  return `launchpad-${tabName}-${style}`;
+}
+
+async function captureCanvas(elementId: string): Promise<HTMLCanvasElement> {
+  const element = document.getElementById(elementId);
+  if (!element) throw new Error("Diagram element not found");
+  return html2canvas(element, {
+    backgroundColor: "#ffffff",
+    scale: 2,
+    useCORS: true,
+    logging: false,
+  });
+}
+
 function Home() {
   const [activeTab, setActiveTab] = useState<"A" | "B" | "C">("A");
   const [activeStyle, setActiveStyle] = useState<"blueprint" | "infographic" | "narrative">("blueprint");
+  const [exporting, setExporting] = useState<null | "png" | "pdf">(null);
 
   const renderDiagram = () => {
     if (activeTab === "C") return null;
@@ -36,8 +55,53 @@ function Home() {
     }
   };
 
-  const handlePrint = () => {
-    window.print();
+  const handleDownloadPNG = async () => {
+    setExporting("png");
+    try {
+      const canvas = await captureCanvas("diagram-print-area");
+      const link = document.createElement("a");
+      link.download = `${getFileName(activeTab, activeStyle)}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    } catch (e) {
+      console.error("PNG export failed:", e);
+    } finally {
+      setExporting(null);
+    }
+  };
+
+  const handleDownloadPDF = async () => {
+    setExporting("pdf");
+    try {
+      const canvas = await captureCanvas("diagram-print-area");
+      const imgData = canvas.toDataURL("image/png");
+      // Use landscape letter size (11 x 8.5 inches)
+      const pdf = new jsPDF({ orientation: "landscape", unit: "in", format: "letter" });
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+      // Scale image to fill page with small margin
+      const margin = 0.25;
+      const availW = pageW - margin * 2;
+      const availH = pageH - margin * 2;
+      const imgAspect = canvas.width / canvas.height;
+      const pageAspect = availW / availH;
+      let drawW: number, drawH: number;
+      if (imgAspect > pageAspect) {
+        drawW = availW;
+        drawH = availW / imgAspect;
+      } else {
+        drawH = availH;
+        drawW = availH * imgAspect;
+      }
+      const x = margin + (availW - drawW) / 2;
+      const y = margin + (availH - drawH) / 2;
+      pdf.addImage(imgData, "PNG", x, y, drawW, drawH);
+      pdf.save(`${getFileName(activeTab, activeStyle)}.pdf`);
+    } catch (e) {
+      console.error("PDF export failed:", e);
+    } finally {
+      setExporting(null);
+    }
   };
 
   return (
@@ -117,16 +181,30 @@ function Home() {
             <div className="h-6 w-px bg-border/50 hidden sm:block"></div>
 
             {activeTab !== "C" && (
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={handlePrint}
-                data-testid="btn-print"
-                className="gap-2 font-semibold uppercase tracking-wider text-xs"
-              >
-                <Printer className="w-4 h-4" />
-                Print / Save PDF
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleDownloadPNG}
+                  disabled={exporting !== null}
+                  data-testid="btn-download-png"
+                  className="gap-2 font-semibold uppercase tracking-wider text-xs"
+                >
+                  <FileImage className="w-4 h-4" />
+                  {exporting === "png" ? "Exporting…" : "Download PNG"}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleDownloadPDF}
+                  disabled={exporting !== null}
+                  data-testid="btn-download-pdf"
+                  className="gap-2 font-semibold uppercase tracking-wider text-xs"
+                >
+                  <FileText className="w-4 h-4" />
+                  {exporting === "pdf" ? "Exporting…" : "Download PDF"}
+                </Button>
+              </div>
             )}
           </div>
         </div>

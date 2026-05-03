@@ -1,0 +1,162 @@
+[
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789001",
+    "position": 1,
+    "filepath": "src/pages/slides/Slide01Title.tsx",
+    "title": "Title — Startup Launchpad",
+    "description": "Program title slide with hero image background and key identifier.",
+    "speakerNotes": "Welcome everyone. Today we're presenting Startup Launchpad — a four-semester innovation program we're proposing to establish at the Smith Center. This deck will walk you through the student need we're addressing, the full program structure, our signature events, the resource model, and the six specific approvals we're requesting from university leadership today."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789002",
+    "position": 2,
+    "filepath": "src/pages/slides/Slide02Gap.tsx",
+    "title": "The Student Innovation Gap",
+    "description": "Two-column slide showing the challenge and the opportunity for student innovation.",
+    "speakerNotes": "Let's start with the problem. Three-quarters of students report wanting entrepreneurship experience but finding no structured path to get it. One in four student ventures fails before it even forms a complete team. And the programs that do exist — hackathons, elective courses, pitch nights — are siloed and disconnected from academic credit and faculty advising. The Smith Center is in a unique position to solve this. Not by adding another one-off event, but by building a connected ecosystem that spans the full student journey."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789003",
+    "position": 3,
+    "filepath": "src/pages/slides/Slide03WhyNow.tsx",
+    "title": "Why the Time Is Right",
+    "description": "Three-column slide with three drivers: institutional momentum, student demand, and peer benchmarks.",
+    "speakerNotes": "Three forces align right now to make this the right moment. First, university leadership has already signaled innovation as a strategic priority — the Smith Center has a mandate. Second, demand is real and growing: applications to entrepreneurship electives have risen 40% over three years. Third, peer institutions that have built structured programs are reaping measurable returns in alumni engagement, press coverage, and industry partnerships. We're not ahead of the curve, but we're not behind it either — we're at exactly the right inflection point to move."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789004",
+    "position": 4,
+    "filepath": "src/pages/slides/Slide04Vision.tsx",
+    "title": "Program Vision",
+    "description": "Vision statement on a dark navy background — the north star for the program.",
+    "speakerNotes": "This is the north star. Every student who arrives with curiosity should leave with the skills, the team, and the confidence to build something that matters. That's the promise of Startup Launchpad. Everything in this proposal — the curriculum, the events, the platform, the resource model — flows from this one sentence."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789005",
+    "position": 5,
+    "filepath": "src/pages/slides/Slide05WhoItServes.tsx",
+    "title": "Who the Program Serves",
+    "description": "Four student profile archetypes across the four semesters.",
+    "speakerNotes": "One of the program's key design principles is flexible entry. Not every student begins with an idea, and not every student starts in their first year. We've defined four archetypes: the Explorer who needs a low-stakes first experience; the Builder who has a concept and wants to team up; the Accelerator pursuing serious market validation; and the Contributor who has graduated through the program and comes back to mentor. Students can enter at any archetype — the program meets them where they are."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789006",
+    "position": 6,
+    "filepath": "src/pages/slides/Slide06CoreLoop.tsx",
+    "title": "The Launchpad Core Loop",
+    "description": "Seven-step horizontal flow diagram showing the program's core learning cycle.",
+    "speakerNotes": "The program runs on a seven-step core loop: Explore, Ideate, Form, Build, Validate, Pitch, Lead. Students don't move through all seven steps in a single semester — they re-enter the loop each semester at whatever stage matches their progress. This loop is what creates continuity across the four-semester arc. The Lead step is particularly important: students who mentor the next cohort report the deepest learning and the strongest retention of skills."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789007",
+    "position": 7,
+    "filepath": "src/pages/slides/Slide07FourSemesters.tsx",
+    "title": "Four-Semester Roadmap",
+    "description": "Four-column table mapping each semester to its theme, deliverable, and signature event.",
+    "speakerNotes": "Here's how the loop maps to the four semesters. Semester 1 is Exploration — students build community and identify their interests. Semester 2 is Collaboration — teams form and prototypes are built. Semester 3 is Acceleration — teams on the Sunstone pathway pursue market validation and prepare for external competition. Semester 4 is Contribution — students mentor, judge, and lead. Each semester has a concrete deliverable and a signature event that creates a public accountability moment."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789008",
+    "position": 8,
+    "filepath": "src/pages/slides/Slide08EntryPoints.tsx",
+    "title": "Flexible Entry Points",
+    "description": "Four entry tracks: Fresh Start, Idea-First, Transfer-In, and Alumni Return.",
+    "speakerNotes": "As I mentioned, students can enter at any semester. Track A is a Fresh Start for students beginning from zero. Track B lets idea-first students skip the exploration phase and jump straight into team formation. Track C allows students transferring from other programs or universities to enter at Semester 3 with recognized prior experience. Track D is for alumni who return to serve as Contributors. This flexibility is what allows the program to serve the full student body, not just incoming freshmen."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789009",
+    "position": 9,
+    "filepath": "src/pages/slides/Slide09TeamFormation.tsx",
+    "title": "Team Formation Model",
+    "description": "How teams are formed using platform matching, facilitated events, and advisor review.",
+    "speakerNotes": "Team formation is one of the most critical — and most commonly failed — steps in any innovation program. We address it three ways. First, the Launchpad platform matches students by skill, interest, and availability before any in-person event. Second, we run structured Speed Teaming sessions at the start of Semester 2 where students pitch their ideas and form coalitions with real-time facilitation. Third, faculty advisors review every team composition before it locks, and flag any gaps in coverage. Every team must have at minimum a Builder, a Designer, a Strategist, and a Domain Expert."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd345678900a",
+    "position": 10,
+    "filepath": "src/pages/slides/Slide10Platform.tsx",
+    "title": "The Launchpad Platform",
+    "description": "Six platform modules: Proposal Builder, Team Matcher, Progress Tracker, Resource Map, Event Hub, and Portfolio Archive.",
+    "speakerNotes": "The Launchpad platform is the connective tissue of the program. It has six modules. The core three are: Proposal Builder — structured templates aligned to academic submission standards; Team Matcher — skill-based discovery and compatibility scoring; and Progress Tracker — milestone dashboards visible to students, advisors, and staff simultaneously. Supporting those are the Resource Map, Event Hub, and Portfolio Archive. The platform runs under university SSO and integrates with the existing student information system — which is one of the six approvals we're requesting today."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd345678900b",
+    "position": 11,
+    "filepath": "src/pages/slides/Slide11Ideathon.tsx",
+    "title": "Fall Ideathon",
+    "description": "Signature fall event details: format, participants, judging criteria, and projected scale.",
+    "speakerNotes": "The Fall Ideathon is the program's first signature event and the most important enrollment driver. It's a 90-second pitch event — students present ideas, not finished products. This is deliberately low-stakes: we want first-semester students to feel safe putting an idea in front of judges. We're projecting 150 participants and 30 judges in the pilot year. The judging criteria weight communication and team composition heavily, because we're selecting for coachability and collaboration, not just idea quality. Teams that perform well here move into the formal team formation process for Semester 2."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd345678900c",
+    "position": 12,
+    "filepath": "src/pages/slides/Slide12Festival.tsx",
+    "title": "Spring Innovation Festival",
+    "description": "The spring showcase: open exhibition, pitch finals, awards ceremony, and its strategic importance.",
+    "speakerNotes": "The Spring Innovation Festival is the program's most visible public moment. It runs in three phases: a morning open exhibition where all teams display their prototypes and data; an afternoon pitch finals for the top 10 selected teams; and an evening awards ceremony. We're projecting 200 attendees including industry guests and alumni. This is the event that proves the program delivers tangible outcomes — and it's the moment when industry partners see recruiting opportunities, which is what sustains the program financially over time."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd345678900d",
+    "position": 13,
+    "filepath": "src/pages/slides/Slide13Sunstone.tsx",
+    "title": "The Sunstone Validation Pathway",
+    "description": "Four-phase validation pathway for teams pursuing serious market validation.",
+    "speakerNotes": "The Sunstone Pathway is the program's highest tier — designed for teams that are ready to pursue serious market validation and external competition. It has four phases: Qualification at the end of Semester 2, where a faculty panel reviews the team's proposal and eligibility. Customer Discovery in early Semester 3, requiring 50 structured interviews. Prototype Validation in mid-Semester 3, requiring a working MVP and 25 beta users. And Festival Advancement, where Sunstone teams receive priority placement in the pitch finals and introductions to the Smith Center's investor network. We're targeting 10 Sunstone teams in the pilot year."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd345678900e",
+    "position": 14,
+    "filepath": "src/pages/slides/Slide14Benchmarks.tsx",
+    "title": "External Challenge Benchmarks",
+    "description": "Six external competitions that Launchpad students will be prepared to enter.",
+    "speakerNotes": "A program is only as credible as where its students compete. By Semester 3, Launchpad students will be prepared for national competitions including the Harvard New Venture Competition, the MIT $100K Entrepreneurship Competition, and the Collegiate Inventors Competition. For earlier-stage teams, we have a curated regional pitch circuit and industry-sponsored challenges with corporate partners. These external placements are the proof points that build the program's reputation year over year."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd345678900f",
+    "position": 15,
+    "filepath": "src/pages/slides/Slide15Resources.tsx",
+    "title": "Resource Infrastructure",
+    "description": "Six resource categories: Space, People, Funding, Tools, Curriculum, and Events.",
+    "speakerNotes": "The program is resource-intensive in Year 1 and self-sustaining by Year 3. The six categories are: Space — the Innovation Lab and meeting suites. People — faculty advisors assigned per team and a network of 40 industry mentors. Funding — micro-grants up to $500 per team and a $12,000 annual prize pool. Tools — the Launchpad platform and fabrication equipment. Curriculum — Innovation Practicum course credit and monthly skills workshops. Events — the Ideathon, Festival, and external challenge program. The $85,000 pilot budget covers all six categories for Year 1."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789010",
+    "position": 16,
+    "filepath": "src/pages/slides/Slide16Calendar.tsx",
+    "title": "Pilot-Year Calendar",
+    "description": "Five-phase horizontal timeline for the pilot academic year.",
+    "speakerNotes": "Here's how the pilot year unfolds. We launch in August-September with recruitment, faculty onboarding, and platform deployment. Phase 2 is the Fall Ideathon in October. Phase 3 is the Spring Build period in January-February, where teams prototype and Sunstone qualification happens. Phase 4 is the Spring Innovation Festival in March. Phase 5 is the Capstone in April-May, where we run our year-end retrospective and begin onboarding the Year 2 cohort. The entire arc is designed to fit within one academic year with minimal disruption to existing calendars."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789011",
+    "position": 17,
+    "filepath": "src/pages/slides/Slide17Metrics.tsx",
+    "title": "Measuring Success",
+    "description": "Four success metrics: Participation (200 students), Teams (40), Validation (10 Sunstone), and Impact (3+ ventures).",
+    "speakerNotes": "We're committing to four measurable outcomes for the pilot year. Two hundred enrolled students, forty cross-functional teams formed, ten teams reaching Sunstone status, and three or more ventures continuing beyond the program post-graduation. Beyond those headline numbers, we track semester-to-semester retention, disciplines represented per team, external competition placements, industry meetings secured, alumni giving rates, press mentions, and the growth of our industry sponsor network. We'll report on all of these at the end of Year 1 as part of the case for Year 2 funding."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789012",
+    "position": 18,
+    "filepath": "src/pages/slides/Slide18Risks.tsx",
+    "title": "Risk Register",
+    "description": "Four risks with likelihood ratings and mitigations.",
+    "speakerNotes": "We've identified four primary risks. Low initial enrollment — rated medium likelihood, mitigated by partnering with four departments for cohort seeding and offering course credit as an incentive. Faculty bandwidth — medium likelihood, mitigated by capping advisor load at four teams and pairing with industry mentors. Platform adoption — low likelihood given that milestones and advisor check-ins are platform-gated. Funding gap in Year 2 — medium likelihood, mitigated by starting sponsor outreach in Month 3 of the pilot with a target of two anchor sponsors before year end. We believe all four are manageable with the mitigations in place."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789013",
+    "position": 19,
+    "filepath": "src/pages/slides/Slide19Ask.tsx",
+    "title": "University Approval Requested",
+    "description": "Six specific approvals needed to launch the pilot year.",
+    "speakerNotes": "We're requesting six approvals today. One: Curricular Integration — establishing the Innovation Practicum course designation with cross-departmental acceptance. Two: Physical Space Allocation — 2,000 square feet of Innovation Lab space and four meeting suites. Three: Seed Funding Budget — $85,000 for the pilot year. Four: Faculty Coordinator Role — a 0.5 FTE coordinator position with advisor stipends. Five: IT Infrastructure Access — Launchpad platform under university SSO integrated with student information systems. Six: External Partnership Endorsement — the ability to co-sign on challenge briefs and competition letters. Each of these has been scoped to the minimum necessary to launch with confidence."
+  },
+  {
+    "id": "f1a2b3c4-d5e6-7890-ab12-cd3456789014",
+    "position": 20,
+    "filepath": "src/pages/slides/Slide20Close.tsx",
+    "title": "Closing Vision",
+    "description": "Dark closing slide with the program's bold vision statement and next steps.",
+    "speakerNotes": "The next generation of university innovation starts here. With your approval, the Smith Center will build a student innovation ecosystem that serves students across every discipline and positions this institution as a national leader in student entrepreneurship. The three concrete next steps after today are: review and vote on the six approval items; designate a Faculty Coordinator for Spring recruitment; and set a launch date for platform onboarding. We're ready to move. Thank you."
+  }
+]

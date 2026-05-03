@@ -1,0 +1,31 @@
+kind = "slides"
+previewPath = "/launchpad-deck/"
+title = "Startup Launchpad Deck"
+version = "1.0.0"
+id = "artifacts/launchpad-deck"
+router = "path"
+
+[[integratedSkills]]
+name = "slides"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/launchpad-deck/" ]
+localPort = 21393
+
+[services.development]
+run = "pnpm --filter @workspace/launchpad-deck run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/launchpad-deck", "run", "build" ]
+publicDir = "artifacts/launchpad-deck/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21393"
+BASE_PATH = "/launchpad-deck/"

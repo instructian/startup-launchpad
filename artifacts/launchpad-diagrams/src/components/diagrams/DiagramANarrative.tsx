@@ -198,6 +198,12 @@ export const DiagramANarrative = () => {
               <span className="text-[9px] text-[#4A3B32]">{e.event} ({e.pitch}) — {e.date}</span>
             </div>
           ))}
+          <div className="w-full border-t border-dashed border-[#eaddce] pt-1.5 mt-0.5 flex items-center gap-4 flex-wrap">
+            <span className="text-[9px] font-bold text-[#7c4422] italic">Entry-Point Markers:</span>
+            <div className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#D4882A] opacity-60"></span><span className="text-[9px] text-[#4A3B32]">Pitch milestone dot = semester-end event</span></div>
+            <div className="flex items-center gap-1"><div className="w-3 h-3 rotate-45 border bg-[#D4882A]" style={{ borderColor: "#0D2240" }}></div><span className="text-[9px] text-[#4A3B32]">Sunstone = final destination (Spring Y2)</span></div>
+            <span className="text-[9px] italic text-[#8a7664]">Diagram A = the full 4-semester journey. For student entry tracks, see Diagram B.</span>
+          </div>
         </div>
       </div>
     </div>

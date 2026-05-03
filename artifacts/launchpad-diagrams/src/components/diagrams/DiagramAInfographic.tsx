@@ -165,6 +165,17 @@ export const DiagramAInfographic = () => {
           <span className="text-[9px] bg-[#0D2240] text-[#F7F5F0] px-1.5 py-0.5 rounded font-mono">Module</span>
           <span className="text-xs font-medium">Launchpad tool module (active during semester)</span>
         </div>
+        <div className="border-l border-[#E5E0D8] pl-4 flex items-center gap-4 flex-wrap">
+          <div className="flex items-center gap-1.5">
+            <div className="w-3 h-3 rounded-full border-2 border-[#D4882A] bg-[#F7F5F0] flex-shrink-0"></div>
+            <span className="text-xs font-medium">Pitch milestone (semester end event)</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <div className="w-4 h-4 bg-[#D4882A] border border-[#0D2240] rotate-45 flex-shrink-0"></div>
+            <span className="text-xs font-medium">Sunstone — final destination (Spring Y2)</span>
+          </div>
+          <span className="text-[10px] text-[#8A99AA] italic">Diagram A = full journey. For student entry tracks, see Diagram B.</span>
+        </div>
       </div>
     </div>
   );

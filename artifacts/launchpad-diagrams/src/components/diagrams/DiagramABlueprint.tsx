@@ -215,6 +215,15 @@ export const DiagramABlueprint = () => {
               ))}
             </div>
           </div>
+          <div>
+            <h4 className="font-display uppercase tracking-wider text-[#D4882A] text-xs border-b border-[#D4882A] border-opacity-40 pb-1 mb-2">Entry-Point Markers</h4>
+            <div className="space-y-1 text-[9px] opacity-60">
+              <div className="flex items-center gap-1.5"><div className="w-3 h-3 rounded-full border-2 border-[#D4882A] bg-[#071628]"></div><span>Pitch milestone dot (semester end)</span></div>
+              <div className="flex items-center gap-1.5"><span className="text-[#D4882A]">&#9658;</span><span>Progression arrow (semester to semester)</span></div>
+              <div className="flex items-center gap-1.5"><div className="w-3 h-3 rotate-45 border-2 border-[#D4882A]"></div><span>Sunstone — final destination (Spring Y2)</span></div>
+              <div className="text-[8px] opacity-50 mt-1 italic">Diagram A models the full 4-semester journey.<br/>For student entry-track details, see Diagram B.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

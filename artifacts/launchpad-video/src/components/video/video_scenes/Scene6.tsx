@@ -15,19 +15,19 @@ export function Scene6() {
   }, []);
 
   return (
-    <motion.div 
+    <motion.div
       className="absolute inset-0 bg-[var(--color-brand-dark)] overflow-hidden"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.8 }}
+      initial={{ opacity: 0, scale: 0.97 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 1.04, filter: 'blur(8px)' }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
     >
       {/* Spotlight Effect */}
       <motion.div
         className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[80vw] h-[120vh] opacity-20 pointer-events-none"
         style={{
           background: 'conic-gradient(from 180deg at 50% 0%, transparent 0deg, var(--color-brand-gold) 180deg, transparent 360deg)',
-          clipPath: 'polygon(50% 0%, 100% 100%, 0% 100%)'
+          clipPath: 'polygon(50% 0%, 100% 100%, 0% 100%)',
         }}
         initial={{ opacity: 0, scaleY: 0 }}
         animate={phase >= 1 ? { opacity: 0.3, scaleY: 1 } : { opacity: 0, scaleY: 0 }}
@@ -35,12 +35,12 @@ export function Scene6() {
       />
 
       {/* Crowd dot pattern */}
-      <motion.div 
+      <motion.div
         className="absolute bottom-0 left-0 right-0 h-[40vh] opacity-30"
         style={{
           backgroundImage: 'radial-gradient(circle at center, var(--color-brand-muted) 2px, transparent 2px)',
           backgroundSize: '20px 20px',
-          maskImage: 'linear-gradient(to top, black, transparent)'
+          maskImage: 'linear-gradient(to top, black, transparent)',
         }}
         initial={{ opacity: 0, y: 50 }}
         animate={phase >= 2 ? { opacity: 0.3, y: 0 } : { opacity: 0, y: 50 }}

@@ -15,7 +15,6 @@ export function Scene3() {
     return () => timers.forEach(t => clearTimeout(t));
   }, []);
 
-  // Nodes for network
   const nodes = [
     { x: '30%', y: '30%' },
     { x: '70%', y: '20%' },
@@ -27,12 +26,12 @@ export function Scene3() {
   ];
 
   return (
-    <motion.div 
+    <motion.div
       className="absolute inset-0 flex items-center justify-center bg-[var(--color-brand-navy)]"
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, x: -100 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      exit={{ opacity: 0, scale: 1.04, filter: 'blur(8px)' }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
     >
       <div className="absolute inset-0 z-0">
         {/* Lines connecting center to nodes */}
@@ -61,10 +60,10 @@ export function Scene3() {
               phase >= 4 ? { scale: 0, opacity: 0 } :
               phase >= 1 ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }
             }
-            transition={{ 
-              duration: phase >= 4 ? 0.5 : 0.6, 
-              delay: phase >= 4 ? i * 0.05 : i * 0.1, 
-              ease: [0.16, 1, 0.3, 1] 
+            transition={{
+              duration: phase >= 4 ? 0.5 : 0.6,
+              delay: phase >= 4 ? i * 0.05 : i * 0.1,
+              ease: [0.16, 1, 0.3, 1],
             }}
           >
             <div className="w-1/2 h-1/2 rounded-full bg-[var(--color-brand-gold)] opacity-50" />
@@ -79,13 +78,13 @@ export function Scene3() {
           transition={{ type: 'spring', stiffness: 200, damping: 20 }}
         >
           <div className="text-[var(--color-brand-dark)] font-display font-bold text-[3vw] tracking-wider text-center leading-none">
-            TEAM<br/>FORMED
+            TEAM<br />FORMED
           </div>
         </motion.div>
       </div>
 
       <div className="relative z-20 pointer-events-none mt-[30vh]">
-        <motion.div 
+        <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={phase >= 3 ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}

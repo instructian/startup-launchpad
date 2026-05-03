@@ -14,12 +14,12 @@ export function Scene8() {
   }, []);
 
   return (
-    <motion.div 
+    <motion.div
       className="absolute inset-0 flex flex-col items-center justify-center bg-[var(--color-brand-dark)]"
-      initial={{ opacity: 0, filter: 'blur(20px)', scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+      exit={{ opacity: 0, scale: 1.04, filter: 'blur(8px)' }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
       <motion.div
         className="text-center"
@@ -39,12 +39,12 @@ export function Scene8() {
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
       >
         <h1 className="text-[8vw] font-black text-[var(--color-brand-offwhite)] font-display leading-[0.85] tracking-tight text-center">
-          STARTUP<br/>
+          STARTUP<br />
           <span className="text-[var(--color-brand-gold)]">LAUNCHPAD</span>
         </h1>
-        
+
         {/* Animated Gold Underline */}
-        <motion.div 
+        <motion.div
           className="absolute -bottom-[2vw] left-0 right-0 h-[0.5vw] bg-[var(--color-brand-gold)] origin-center"
           initial={{ scaleX: 0 }}
           animate={phase >= 3 ? { scaleX: 1 } : { scaleX: 0 }}

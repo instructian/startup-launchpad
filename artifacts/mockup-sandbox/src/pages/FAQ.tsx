@@ -272,13 +272,14 @@ function AccordionItem({
           }`}
         />
       </button>
-      {isOpen && (
-        <div className="faq-answer px-5 pb-5 border-t border-[#0D2240]/8">
-          <p className="pt-4 text-[14px] leading-relaxed text-[#0D2240]/75">
-            {highlight(faq.a, query)}
-          </p>
-        </div>
-      )}
+      <div
+        className="faq-answer px-5 pb-5 border-t border-[#0D2240]/8"
+        style={{ display: isOpen ? "block" : "none" }}
+      >
+        <p className="pt-4 text-[14px] leading-relaxed text-[#0D2240]/75">
+          {highlight(faq.a, query)}
+        </p>
+      </div>
     </div>
   );
 }

@@ -9,6 +9,8 @@ import ProposalPage from "@/pages/proposal";
 import FAQPage from "@/pages/faq";
 import ResourcesPage from "@/pages/resources";
 import CalendarPage from "@/pages/calendar";
+import RubricPage from "@/pages/rubric";
+import BudgetPage from "@/pages/budget";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient();
@@ -22,6 +24,8 @@ function Router() {
         <Route path="/faq" component={FAQPage} />
         <Route path="/resources" component={ResourcesPage} />
         <Route path="/calendar" component={CalendarPage} />
+        <Route path="/rubric" component={RubricPage} />
+        <Route path="/budget" component={BudgetPage} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
